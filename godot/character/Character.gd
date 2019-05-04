@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-#speed in pixel per seconds
-export (int, 1, 200) var ORIG_SPEED = 50
+#maxspeed in pixel per seconds
+export (int, 1, 200) var ORIG_MAXSPEED = 50
 
 #acceleration in pixel per second
 export (int, 1, 200) var ORIG_ACCELERATION = 25
@@ -20,7 +20,7 @@ export (int) var EXPFIRSTLEVEL
 #diminischer for xp need
 export (float, 0.1, 1) var EXPSSCALE
 
-var speed = ORIG_SPEED
+var max_speed = ORIG_MAXSPEED
 
 var acc = ORIG_ACCELERATION
 
@@ -28,7 +28,7 @@ var decc = ORIG_DECCELERATION
 
 var rot_speed = ORIG_ROTSPEED
 
-var max_healt = ORIG_HEALTH
+var max_health = ORIG_HEALTH
 
 var current_health = ORIG_HEALTH
 
@@ -36,7 +36,9 @@ var needed_exp = EXPFIRSTLEVEL
 
 var movement_vector = Vector2(0, 0)
 
-var direction = Vector2(0, 0)
+var current_direction = Vector2(0, 0)
+
+var wanted_direction = Vector2(0, 0)
 
 enum state {IDLE, MOVEING, EATING, GETHIT, ATTACKING, DYING}
 
@@ -91,10 +93,41 @@ func start_dying():
 	current_state = state.DYING
 	
 func idle(delta):
-	pass
+	if wanted_direction != Vector2(0, 0):
+		start_moveing()
+		return
+		
+	if movement_vector != Vector2(0,0):
+		movement_vector -= movement_vector.normalized() * decc * delta
+	
+		if movement_vector.abs() <= Vector2(decc, decc):
+			movement_vector = Vector2(0, 0)
+		
+		else:
+			move_and_collide(movement_vector * delta)
+	
+		
 	
 func moveing(delta):
-	pass
+	if wanted_direction == Vector2(0, 0):
+		start_idle()
+		return
+		
+	var speed = clamp(movement_vector.length() + acc * delta, 0, max_speed * wanted_direction.length()) 
+	
+	var target_movement = speed * wanted_direction.normalized()
+	var steering = target_movement - movement_vector
+
+	if steering.length() > 1:
+		steering = steering.normalized()
+	
+	movement_vector += steering / 2
+	
+	global_rotation = movement_vector.angle()
+
+	move_and_collide(movement_vector * delta)
+	
+		
 	
 func eating(delta):
 	pass
