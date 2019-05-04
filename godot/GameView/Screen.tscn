@@ -12,11 +12,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBC" type="VBoxContainer" parent="HBC"]
-margin_bottom = 600.0
+margin_right = 958.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="VBC2" type="VBoxContainer" parent="HBC"]
-margin_left = 4.0
-margin_right = 4.0
-margin_bottom = 600.0
+margin_left = 962.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="World" type="Viewport" parent="."]
+transparent_bg = true

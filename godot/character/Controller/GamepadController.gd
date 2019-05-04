@@ -1,6 +1,5 @@
 extends Node
 
-var controller_device_id
 var body
 
 func _ready():
@@ -12,6 +11,8 @@ func _ready():
 	
 func _input(event):
 	# set movement_direction
+	if event.device != body.device_id:
+		return
 	if event is InputEventJoypadMotion:
 		
 		if event.axis == JOY_AXIS_0:

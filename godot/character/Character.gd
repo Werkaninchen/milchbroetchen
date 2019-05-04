@@ -88,12 +88,18 @@ enum state {IDLE, MOVEING, EATING, GETHIT, ATTACKING, DYING}
 
 var current_state = state.IDLE
 
+var device_id
+
+var camera
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_idle()
 # warning-ignore:return_value_discarded
 	connect("died", self, "_on_died")
 	connect("level_up", self, "_on_level_up")
+	
+	camera = $Camera2D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

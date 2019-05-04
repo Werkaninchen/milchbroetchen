@@ -1,5 +1,7 @@
 extends Control
 
+var screen_scene = preload("res://GameView/Screen.tscn")
+
 var p1 = {}
 var p2 = {}
 var p3 = {}
@@ -64,4 +66,6 @@ func _input(event):
 				timer.start(5)
 				
 func _on_timer_timeout():
-	pass
+	var screen = screen_scene.instance()
+	screen.setup_players(players)
+	SceneChanger.call_deferred("change_to_scene", screen)
