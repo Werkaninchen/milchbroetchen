@@ -1,4 +1,4 @@
-extends "res://consumables/Consumable.gd"
+extends "res://consumables/base/Consumable.gd"
 var character = load("res://character/Character.gd")
 
 var timer = Timer
