@@ -26,8 +26,11 @@ func _process(delta):
 
 func _physics_process(delta):
 	kinematic_velocity = steer()
-	move_and_collide(kinematic_velocity * delta)
-	#player_target = get_viewport().get_mouse_position()
+	var collision = move_and_collide(kinematic_velocity * delta)
+	
+	if collision is Character: 
+		collision.hit(20)
+#player_target = get_viewport().get_mouse_position()
 	
 func _draw():
 	draw_line(Vector2(), kinematic_velocity, Color(255,0,0))
