@@ -150,7 +150,6 @@ func idle(delta):
 			movement_vector = Vector2(0, 0)
 		
 		else:
-# warning-ignore:return_value_discarded
 			move_and_collide(movement_vector * delta)
 	
 		
@@ -172,24 +171,23 @@ func moveing(delta):
 	
 	#global_rotation = movement_vector.angle()
 
-# warning-ignore:return_value_discarded
+
 	move_and_collide(movement_vector * delta)
 	
 		
 	
-# warning-ignore:unused_argument
+
 func eating(delta):
 	pass
 	
-# warning-ignore:unused_argument
+
 func gethit(delta):
 	pass
 	
-# warning-ignore:unused_argument
+
 func attacking(delta):
 	pass
 	
-# warning-ignore:unused_argument
 func dying(delta):
 	if movement_vector != Vector2(0,0):
 		movement_vector -= movement_vector.normalized() * decc * delta
@@ -198,10 +196,8 @@ func dying(delta):
 			movement_vector = Vector2(0, 0)
 		
 		else:
-# warning-ignore:return_value_discarded
 			move_and_collide(movement_vector * delta)
 	
-# warning-ignore:unused_argument
 func hit(damage):
 	pass
 	
