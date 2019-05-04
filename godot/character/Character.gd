@@ -123,7 +123,7 @@ func moveing(delta):
 	
 	movement_vector += steering / mass
 	
-	global_rotation = movement_vector.angle()
+	#global_rotation = movement_vector.angle()
 
 	move_and_collide(movement_vector * delta)
 	
