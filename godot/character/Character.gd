@@ -10,7 +10,7 @@ export (int, 1, 200) var ORIG_ACCELERATION = 200
 export (int, 1, 200) var ORIG_DECCELERATION = 100
 
 #rotationspeed in degrees per second
-export (float) var ORIG_MASS = 0.3
+export (float) var ORIG_MASS = 0.1
 
 export (int, 1, 1000) var ORIG_HEALTH = 100
 
