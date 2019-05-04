@@ -7,6 +7,7 @@ export var  MAX_FORCE = 0.02
 onready var spawn_point = get_global_position()
 onready var tweener: Tween = get_node("Tween")
 onready var player_detector: CollisionShape2D = get_node("PlayerDetector/CollisionShape2D")
+onready var death_explosion: Particles2D = get_node("Particles2D")
 onready var character : Character
 
 var kinematic_velocity : Vector2 = Vector2()
@@ -58,7 +59,12 @@ func patrol():
 # 		Logic
 # ====================
 func kill_self():
-	#TODO Add cool particle effects and shit 
+	#TODO Add cool particle effects and shit
+
+	death_explosion.set_emitting(true)
+	var sprite = get_node("Sprite")
+	sprite.hide()
+	yield(get_tree().create_timer(1.5), "timeout")
 	queue_free()
 func get_patrol_point():
 	var radius = player_detector.shape.radius
