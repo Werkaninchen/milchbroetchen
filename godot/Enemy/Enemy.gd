@@ -28,8 +28,11 @@ func _physics_process(delta):
 	kinematic_velocity = steer()
 	var collision = move_and_collide(kinematic_velocity * delta)
 	
-	if collision is Character: 
-		collision.hit(20)
+	if collision:
+		if collision.collider is Character:
+			var collided_player : Character = collision.collider
+			collided_player.hit(20)
+			kill_self()
 #player_target = get_viewport().get_mouse_position()
 	
 func _draw():
@@ -54,7 +57,9 @@ func patrol():
 # ====================
 # 		Logic
 # ====================
-	
+func kill_self():
+	#TODO Add cool particle effects and shit 
+	queue_free()
 func get_patrol_point():
 	var radius = player_detector.shape.radius
 	var angle = deg2rad(rand_range(0,360))
