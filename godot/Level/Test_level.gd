@@ -1,11 +1,11 @@
 extends Node
 
+var xp = load("res://consumables/XP.tscn")
+var speed = load("res://consumables/Speed.tscn")
+
 var consumables = []
 var consumables_amount = 5
-var consumable_prefs = [
-	load("res://consumables/XP.tscn"),
-	load("res://consumables/Speed.tscn")
-	]
+var consumable_prefs = [xp, speed]
 
 func _ready():
 	self.consumables = create_consumables()
