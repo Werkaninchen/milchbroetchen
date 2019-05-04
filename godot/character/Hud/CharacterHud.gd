@@ -19,7 +19,7 @@ func _ready():
 	health_bar.value = character.current_health
 	
 	
-	character.connect("healt_changed", self, "_on_health_changed")
+	character.connect("health_changed", self, "_on_health_changed")
 	character.connect("exp_earned", self, "_on_exp_earned")
 	
 func _on_health_changed():
