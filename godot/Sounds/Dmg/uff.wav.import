@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/uff.wav-699bda1a9c382cbf1c1b7fc104231c2f.sample"
+
+[deps]
+
+source_file="res://Sounds/Dmg/uff.wav"
+dest_files=[ "res://.import/uff.wav-699bda1a9c382cbf1c1b7fc104231c2f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
