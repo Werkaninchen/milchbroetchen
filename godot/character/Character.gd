@@ -1,16 +1,16 @@
 extends KinematicBody2D
 
 #maxspeed in pixel per seconds
-export (int, 1, 200) var ORIG_MAXSPEED = 50
+export (int, 1, 200) var ORIG_MAXSPEED = 200
 
 #acceleration in pixel per second
-export (int, 1, 200) var ORIG_ACCELERATION = 25
+export (int, 1, 200) var ORIG_ACCELERATION = 200
 
 #decceleration in pixel per second
-export (int, 1, 200) var ORIG_DECCELERATION = 10
+export (int, 1, 200) var ORIG_DECCELERATION = 100
 
 #rotationspeed in degrees per second
-export (int, 1, 360) var ORIG_ROTSPEED = 10
+export (float) var ORIG_MASS = 0.3
 
 export (int, 1, 1000) var ORIG_HEALTH = 100
 
@@ -26,7 +26,7 @@ var acc = ORIG_ACCELERATION
 
 var decc = ORIG_DECCELERATION
 
-var rot_speed = ORIG_ROTSPEED
+var mass = ORIG_MASS
 
 var max_health = ORIG_HEALTH
 
@@ -100,7 +100,7 @@ func idle(delta):
 	if movement_vector != Vector2(0,0):
 		movement_vector -= movement_vector.normalized() * decc * delta
 	
-		if movement_vector.abs() <= Vector2(decc, decc):
+		if abs(movement_vector.length()) < decc * delta:
 			movement_vector = Vector2(0, 0)
 		
 		else:
@@ -121,7 +121,7 @@ func moveing(delta):
 	if steering.length() > 1:
 		steering = steering.normalized()
 	
-	movement_vector += steering / 2
+	movement_vector += steering / mass
 	
 	global_rotation = movement_vector.angle()
 
