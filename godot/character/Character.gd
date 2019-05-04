@@ -15,10 +15,10 @@ signal died
 signal attacked
 
 # warning-ignore:unused_signal
-signal exp_earned
+signal exp_earned(xp, needed)
 
 # warning-ignore:unused_signal
-signal level_up
+signal level_up(level)
 
 # warning-ignore:unused_signal
 signal power_up_added(color)
@@ -32,7 +32,7 @@ signal power_up_removed
 signal debuff_removed
 
 # warning-ignore:unused_signal
-signal health_changed
+signal health_changed(health)
 
 #maxspeed in pixel per seconds
 export (int, 1, 200) var ORIG_MAXSPEED = 200
@@ -76,7 +76,9 @@ var defense = ORIG_DEFENSE
 
 var needed_exp = EXPFIRSTLEVEL
 
-var current_exp = 0
+var current_exp = 0 setget _set_current_exp
+
+var level = 0
 
 var movement_vector = Vector2(0, 0)
 
@@ -217,7 +219,8 @@ func _set_current_exp(ep):
 	if current_exp >= needed_exp:
 		current_exp -= needed_exp
 		needed_exp = needed_exp / EXPSSCALE
-		emit_signal("level_up")
+		level += 1
+		emit_signal("level_up", level)
 		
 	emit_signal("exp_earned", current_exp, needed_exp)
 
