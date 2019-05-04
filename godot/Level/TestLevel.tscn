@@ -31,5 +31,3 @@ current = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera2D"]
 stream = ExtResource( 4 )
-volume_db = -10.097
-autoplay = true
