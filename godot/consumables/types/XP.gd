@@ -1,7 +1,6 @@
 extends "res://consumables/base/Consumable.gd"
 var character = load("res://character/Character.gd")
 
-var timer = Timer
 var linkBody = null
 
 func init_type():
@@ -11,11 +10,10 @@ func on_body_entered(body):
 	if body is character:
 		linkBody = body
 		linkBody.current_exp = linkBody.current_exp * 2
-		linkBody.add_child(self)
-		connect("timeout", self, "terminate")
-		timer.start(-duration)
+		get_child(0).hide()
+		timer.start(duration)
 	pass
 	
-func terminate():
+func on_timeout():
 	linkBody.current_exp = linkBody.current_exp / 2
 	queue_free()
