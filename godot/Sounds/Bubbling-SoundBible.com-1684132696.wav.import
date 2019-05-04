@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Bubbling-SoundBible.com-1684132696.wav-781d6334648989921584209309602af5.sample"
+
+[deps]
+
+source_file="res://Sounds/Bubbling-SoundBible.com-1684132696.wav"
+dest_files=[ "res://.import/Bubbling-SoundBible.com-1684132696.wav-781d6334648989921584209309602af5.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
