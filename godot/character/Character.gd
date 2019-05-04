@@ -182,7 +182,7 @@ func eating(delta):
 	
 
 func gethit(delta):
-	pass
+	start_idle()
 	
 
 func attacking(delta):
@@ -199,7 +199,11 @@ func dying(delta):
 			move_and_collide(movement_vector * delta)
 	
 func hit(damage):
-	pass
+	current_health = clamp(current_health - clamp(damage - defense, 0, damage), 0, max_health)
+	if current_health == 0:
+		start_dying()
+		return
+	start_gethit() 
 	
 	
 func _set_current_health(health):
