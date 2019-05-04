@@ -4,7 +4,8 @@ enum ConsumType{
 	XP,
 	Speed,
 	Attack,
-	Health
+	Health,
+	Poison
 }
 	
 func get_rand_consumType():
