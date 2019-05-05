@@ -21,6 +21,7 @@ var sounds
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sounds = sounds_pref.instance()
+	add_child(sounds)
 	sounds.play_game()
 	
 	game_info = $VBC/GameInfoPanel/GameInfoText

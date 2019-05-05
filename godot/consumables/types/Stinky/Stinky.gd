@@ -14,7 +14,6 @@ func on_body_entered(body):
 		linkBody.is_stinky = true
 		timer.start(duration)
 		sounds.stream = sounds.stinky
-		linkBody.add_child(sounds)
 		sounds.play()
 		gas = gas_pref.instance()
 		linkBody.add_child(gas)
@@ -24,6 +23,5 @@ func on_body_entered(body):
 func on_timeout():
 	if linkBody != null:
 		linkBody.is_stinky = false
-		linkBody.remove_child(sounds)
 		linkBody.remove_child(gas)
 	queue_free()

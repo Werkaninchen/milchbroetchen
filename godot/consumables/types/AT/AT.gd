@@ -13,7 +13,6 @@ func on_body_entered(body):
 	if body is character:
 		linkBody.attack_power = linkBody.attack_power * power
 		sounds.stream = sounds.power
-		linkBody.add_child(sounds)
 		sounds.play()
 		timer.start(duration)
 		return
@@ -22,5 +21,4 @@ func on_body_entered(body):
 func on_timeout():
 	if linkBody != null:
 		linkBody.attack_power = linkBody.attack_power / power
-		linkBody.remove_child(sounds)
 	queue_free()

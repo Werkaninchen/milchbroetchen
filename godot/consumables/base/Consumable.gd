@@ -11,6 +11,7 @@ export var duration = 10
 func _ready():
 	init()
 	sounds = sounds_pref.instance()
+	get_tree().root.add_child(sounds)
 	connect("body_entered", self, "on_body_entered")
 	sounds.connect("finished", self, "on_finished")
 func init():
@@ -31,4 +32,4 @@ func on_timeout():
 	pass
 	
 func on_finished():
-	pass
+	sounds.queue_free()

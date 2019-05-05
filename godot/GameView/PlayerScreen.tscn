@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://GameView/PlayerScreen.gd" type="Script" id=1]
-[ext_resource path="res://background.png" type="Texture" id=2]
-[ext_resource path="res://character/Hud/CharacterHud.tscn" type="PackedScene" id=3]
+[ext_resource path="res://character/Hud/CharacterHud.tscn" type="PackedScene" id=2]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Rabbid-Highway-Sign.ttf"
@@ -63,13 +62,7 @@ usage = 0
 render_target_v_flip = true
 gui_disable_input = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="MC/GameView/PlayerViewport"]
-layer = -1
-
-[node name="Sprite" type="Sprite" parent="MC/GameView/PlayerViewport/CanvasLayer"]
-texture = ExtResource( 2 )
-
-[node name="CharacterHud" parent="MC" instance=ExtResource( 3 )]
+[node name="CharacterHud" parent="MC" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 20.0

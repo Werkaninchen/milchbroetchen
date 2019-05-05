@@ -17,7 +17,6 @@ func on_body_entered(body):
 		incr_speed()
 		timer.start(duration)
 		sounds.stream = sounds.speed
-		linkBody.add_child(sounds)
 		sounds.play()
 		return
 	queue_free()
@@ -25,7 +24,6 @@ func on_body_entered(body):
 func on_timeout():
 	if linkBody != null:
 		decr_speed()
-		linkBody.remove_child(sounds)
 	queue_free()
 
 func incr_speed():

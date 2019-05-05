@@ -113,7 +113,7 @@ func _ready():
 	start_idle()
 # warning-ignore:return_value_discarded
 	connect("died", self, "_on_died")
-	connect("level_up", self, "_on_level_up")
+
 	
 	
 	camera = $Camera2D

@@ -29,9 +29,7 @@ func damage_players():
 		if current_damage != 0:
 			player.current_health -= current_damage
 			sounds.stream = sounds.mine
-			linkBody.add_child(sounds)
 			sounds.play()
 
 func on_finished():
-	linkBody.remove_child(sounds)
 	queue_free()

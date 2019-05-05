@@ -15,7 +15,6 @@ func on_body_entered(body):
 	if body is character:
 		timer.start(frequence)
 		sounds.stream = sounds.poison[int(rand_range(0, sounds.poison.size()))]
-		linkBody.add_child(sounds)
 		sounds.play()
 		return
 	queue_free()
@@ -26,6 +25,5 @@ func on_timeout():
 			linkBody.current_health - damage
 			times -= 1
 			timer.start(frequence)
-			linkBody.remove_child(sounds)
 			return
 	queue_free()
