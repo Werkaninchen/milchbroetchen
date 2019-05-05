@@ -37,7 +37,8 @@ func _physics_process(delta):
 #player_target = get_viewport().get_mouse_position()
 	
 func _draw():
-	draw_line(Vector2(), kinematic_velocity, Color(255,0,0))
+	if character:
+		draw_line(Vector2(), kinematic_velocity, Color(255,0,0))
 
 # ====================
 # 	State Handlers
