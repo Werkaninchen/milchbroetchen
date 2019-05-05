@@ -6,7 +6,8 @@ enum ConsumType{
 	Attack,
 	Health,
 	Poison,
-	Mine
+	Mine,
+	Stinky
 }
 	
 func get_rand_consumType():
