@@ -17,8 +17,6 @@ func _ready():
 	
 	max_shots += body.add_attacks
 	
-	area = $AttackArea
-	
 	timer = $Timer
 	
 

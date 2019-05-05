@@ -12,18 +12,24 @@ func on_body_entered(body):
 	.on_body_entered(body)
 	if body is character:
 		damage_players()
+		return
 	queue_free()
 	
 func damage_players():
 	for player in Game.players.values():
 		var dist = self.global_position.distance_to(player.global_position)
-		print(dist)
+		var current_damage = 0
 		if dist < 200:
-			player.current_health - damage
-			Sounds.play_mine()
+			current_damage = - damage
 		elif dist < 350:
-			player.current_health - damage / 2
-			Sounds.play_mine()
+			current_damage = damage / 2
 		elif dist < 500:
-			player.current_health - damage / 3
-			Sounds.play_mine()
+			current_damage = damage / 3
+
+		if current_damage != 0:
+			player.current_health -= current_damage
+			sounds.stream = sounds.mine
+			sounds.play()
+
+func on_finished():
+	queue_free()

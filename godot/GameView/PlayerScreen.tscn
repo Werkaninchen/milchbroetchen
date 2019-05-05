@@ -1,8 +1,22 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://GameView/PlayerScreen.gd" type="Script" id=1]
-[ext_resource path="res://background.png" type="Texture" id=2]
-[ext_resource path="res://character/Hud/CharacterHud.tscn" type="PackedScene" id=3]
+[ext_resource path="res://character/Hud/CharacterHud.tscn" type="PackedScene" id=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Rabbid-Highway-Sign.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 120
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 120
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 120
+font_data = SubResource( 1 )
 
 [node name="PlayerScreen" type="Control"]
 anchor_right = 1.0
@@ -48,13 +62,9 @@ usage = 0
 render_target_v_flip = true
 gui_disable_input = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="MC/GameView/PlayerViewport"]
-layer = -1
-
-[node name="Sprite" type="Sprite" parent="MC/GameView/PlayerViewport/CanvasLayer"]
-texture = ExtResource( 2 )
-
-[node name="CharacterHud" parent="MC" instance=ExtResource( 3 )]
+[node name="CharacterHud" parent="MC" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1900.0
@@ -71,6 +81,7 @@ color = Color( 0.509804, 0, 0, 0.513726 )
 [node name="DeadText" type="Label" parent="MC/DeadScreen"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
 text = "You died, loser..."
 align = 1
 valign = 1
@@ -86,6 +97,7 @@ color = Color( 0, 0.509804, 0.00784314, 0.513726 )
 [node name="WinText" type="Label" parent="MC/WinScreen"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_fonts/font = SubResource( 3 )
 text = "Congratulations! You are the freaking best bakteria out there!"
 align = 1
 valign = 1
@@ -101,6 +113,7 @@ color = Color( 0.509804, 0, 0, 0.513726 )
 [node name="LostText" type="Label" parent="MC/LostScreen"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
 text = "Buuuh! You lost, loser!"
 align = 1
 valign = 1

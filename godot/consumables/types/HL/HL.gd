@@ -12,5 +12,10 @@ func on_body_entered(body):
 			linkBody.current_health = linkBody.current_health + health_up
 		elif linkBody.max_health > linkBody.current_health:
 			linkBody.current_health = linkBody.max_health
-		Sounds.play_health()
+		sounds.stream = sounds.health
+		sounds.play()
+		return
+	queue_free()
+	
+func on_finished():
 	queue_free()

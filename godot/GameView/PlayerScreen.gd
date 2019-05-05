@@ -31,6 +31,8 @@ func set_up_player_game(world, player):
 	
 func _input(event):
 	if event.device == player.id:
+		if $MC/CharacterHud.joy_input(event):
+			return 
 		player.joy_input(event)
 		
 func _on_player_died(id):

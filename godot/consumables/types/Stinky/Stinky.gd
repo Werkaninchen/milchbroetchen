@@ -13,7 +13,8 @@ func on_body_entered(body):
 	if body is character:
 		linkBody.is_stinky = true
 		timer.start(duration)
-		Sounds.play_stinky()
+		sounds.stream = sounds.stinky
+		sounds.play()
 		gas = gas_pref.instance()
 		linkBody.add_child(gas)
 		return
