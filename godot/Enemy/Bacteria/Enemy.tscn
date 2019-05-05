@@ -96,6 +96,7 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="Properties"]
+
 [connection signal="body_entered" from="Properties/PlayerDetector" to="Properties" method="on_player_detected"]
 [connection signal="body_exited" from="Properties/PlayerDetector" to="Properties" method="on_player_exit"]
-[connection signal="tween_completed" from="Properties/Tween" to="." method="_on_movement_tween_completed"]
+[connection signal="tween_completed" from="Properties/Tween" to="Properties" method="_on_movement_tween_completed"]

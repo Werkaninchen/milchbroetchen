@@ -1,4 +1,4 @@
-extends KinematicBody2D
+	extends KinematicBody2D
 
 const Character = preload("res://character/Character.gd")
 export var  MAX_SPEED = 500
@@ -49,11 +49,13 @@ func handle_state():
 			patrol()
 			
 func patrol():
-	if patrol_step < 4:
+	if patrol_step < 10:
+		print("Patrol: %s" % [str(patrol_step)] )
 		move_to(get_patrol_point())
 		patrol_step += 1
 	else:
 		patrol_step = 0
+		print("resetting patrol")
 		move_to(spawn_point)
 	
 # ====================
@@ -65,6 +67,8 @@ func kill_self():
 	queue_free()
 	yield(get_tree().create_timer(death_explosion.lifetime), "timeout")
 	get_parent().queue_free()
+	
+	
 func get_patrol_point():
 	var radius = player_detector.shape.radius
 	var angle = deg2rad(rand_range(0,360))
@@ -74,7 +78,7 @@ func move_to(target_pos):
 	var distance = global_position.distance_to(target_pos)
 	var lerp_velocity = rand_range(MAX_SPEED/3,(MAX_SPEED))
 	var time = distance / lerp_velocity
-	tweener.interpolate_property(self, "position", global_position, target_pos, time, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tweener.interpolate_property(get_parent(), "position", global_position, target_pos, time, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tweener.start()
 
 func steer():
@@ -95,24 +99,25 @@ func steer():
 # ====================
 
 func on_player_detected(body):
-	if not body is Character:
-		return
-	character = body
-	if character.is_stinky:
-		current_state = state.FLEE
-	else:
-		current_state = state.CHASE
-	tweener.stop_all()	
-	set_physics_process(true)
-
+	if body is Character:
+		print("is character")
+		character = body
+		if character.is_stinky:
+			current_state = state.FLEE
+		else:
+			current_state = state.CHASE
+		tweener.stop_all()	
+		set_physics_process(true)
 
 func on_player_exit(body):
-	if not body is Character:
-		return
-	set_physics_process(false)
-	tweener.resume_all()
-	current_state = state.PATROL
-	handle_state()	
+	if body is Character:
+		if body == character:
+			set_physics_process(false)
+			if current_state != state.PATROL:
+				tweener.reset_all()
+				
+				current_state = state.PATROL
+			handle_state()
 	
 func _on_movement_tween_completed(object, key):
 	yield(get_tree().create_timer(rand_range(1,3)), "timeout")
