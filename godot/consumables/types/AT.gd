@@ -1,20 +1,18 @@
 extends "res://consumables/base/Consumable.gd"
-var character = load("res://character/Character.gd")
 
-var linkBody = null
-export var m_attack = 2
+export var power = 2
 
-func init_type():
+func init():
 	consumableType = enums.ConsumType.Attack
+	.create_timer()
 
 func on_body_entered(body):
+	.on_body_entered(body)
 	if body is character:
-		linkBody = body
-		linkBody.attack_power = linkBody.attack_power * m_attack
-		get_child(0).hide()
+		linkBody.attack_power = linkBody.attack_power * power
 		timer.start(duration)
 	pass
 	
 func on_timeout():
-	linkBody.attack_power = linkBody.attack_power / m_attack
+	linkBody.attack_power = linkBody.attack_power / power
 	queue_free()

@@ -56,7 +56,7 @@ export (int, 1, 1000) var ORIG_DEFENSE = 10
 export (int) var EXPFIRSTLEVEL = 1000
 
 #diminisher for xp need
-export (float, 0.1, 1) var EXPSSCALE
+export (float, 0.1, 1) var EXPSSCALE = 0.5
 
 var max_speed = ORIG_MAXSPEED
 
@@ -88,9 +88,11 @@ enum state {IDLE, MOVEING, EATING, GETHIT, ATTACKING, DYING}
 
 var current_state = state.IDLE
 
-var device_id
+var id
 
 var camera
+
+var controler
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -158,7 +160,10 @@ func idle(delta):
 			movement_vector = Vector2(0, 0)
 		
 		else:
-			move_and_collide(movement_vector * delta)
+			var collider = move_and_collide(movement_vector * delta)
+			
+			if collider:
+				movement_vector = Vector2(0, 0)
 	
 		
 	
@@ -180,7 +185,10 @@ func moveing(delta):
 	#global_rotation = movement_vector.angle()
 
 
-	move_and_collide(movement_vector * delta)
+	var collider = move_and_collide(movement_vector * delta)
+	
+	if collider:
+		movement_vector = Vector2(0, 0)
 	
 		
 	
@@ -204,7 +212,10 @@ func dying(delta):
 			movement_vector = Vector2(0, 0)
 		
 		else:
-			move_and_collide(movement_vector * delta)
+			var collider = move_and_collide(movement_vector * delta)
+			
+			if collider:
+				movement_vector = Vector2(0, 0)
 	
 func hit(damage):
 	current_health = clamp(current_health - clamp(damage - defense, 0, damage), 0, max_health)
@@ -235,3 +246,13 @@ func _on_died():
 
 func _on_level_up():
 	pass
+
+func register_controler(controler):
+	self.controler = controler
+
+func joy_input(event):
+	controler.joy_input(event)
+	
+func _input(event):
+	if controler:
+		controler.joy_input(event)

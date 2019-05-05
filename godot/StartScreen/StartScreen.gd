@@ -9,16 +9,19 @@ var p4 = {}
 var players = {}
 var timer
 var info
+var player_texts = []
 
 func _ready():
-	p1.text = $VBC/HBC/Player1
-	p1.ready = false
-	p2.text = $VBC/HBC/Player2
-	p2.ready = false
-	p3.text = $VBC/HBC/Player3
-	p3.ready = false
-	p4.text = $VBC/HBC/Player4
-	p4.ready = false
+	player_texts.append($VBC/HBC/Player1)
+	
+	player_texts.append($VBC/HBC/Player2)
+
+	player_texts.append($VBC/HBC2/Player3)
+	
+	player_texts.append($VBC/HBC2/Player4)
+	
+	
+	
 	
 	info = $VBC/Info
 	
@@ -41,29 +44,43 @@ func _input(event):
 		if !event.pressed:
 			if event.button_index == JOY_START:
 				if players.has(event.device):
-					players[event.device].text.text = "Please Press Start"
+					players[event.device].label.text = "Please Press Start"
+					player_texts.push_front(players[event.device].label)
 					players.erase(event.device)
 				else:
-					players[event.device] = p1
-					players[event.device].text.text = "Please Hold A"
+					players[event.device] = {}
+					players[event.device].label = player_texts.pop_front()
+					players[event.device].ready = false
+					players[event.device].label.text = "Please Hold A"
 			
 			if event.button_index == JOY_XBOX_A:
 				if players.has(event.device) and players[event.device].ready == true:
 					players[event.device].ready = false
-					players[event.device].text.text = "Please Hold A"
-					for player in players:
-						if players[player].ready == true:
-							return
+					players[event.device].label.text = "Please Hold A"
+					
+#					var ready_players = 0
+#
+#					for player in players:
+#						if players[player].ready == true:
+#							ready_players += 1
+#
+#					if ready_players <= 1:
 					timer.stop()
 					
 				
 		if event.pressed and event.button_index == JOY_XBOX_A:
 			if players.has(event.device):
 				players[event.device].ready = true
-				players[event.device].text.text = "You Are Ready"
-#				for player in players:
-#					if players[player].ready and player != event.device:
-				timer.start(5)
+				players[event.device].label.text = "You Are Ready"
+				
+				var players_ready = 0
+				
+				for player in players:
+					if players[player].ready:
+						players_ready += 1
+					
+				if players_ready == players.size():
+					timer.start(1)
 				
 func _on_timer_timeout():
 	var screen = screen_scene.instance()
