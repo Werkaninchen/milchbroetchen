@@ -4,7 +4,7 @@
 [ext_resource path="res://character/0x72_16x16DungeonTileset.v3.png" type="Texture" id=2]
 [ext_resource path="res://character/Controller/GamepadController.gd" type="Script" id=3]
 [ext_resource path="res://Sounds/ambient.ogg" type="AudioStream" id=4]
-[ext_resource path="res://Sounds/Dmg/uff.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/PowerUp.wav" type="AudioStream" id=5]
 [ext_resource path="res://Level/AudioStreamPlayer2.gd" type="Script" id=6]
 [ext_resource path="res://icon.png" type="Texture" id=7]
 
@@ -38,6 +38,7 @@ autoplay = true
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+volume_db = -14.136
 script = ExtResource( 6 )
 
 [node name="Button" type="Button" parent="."]
