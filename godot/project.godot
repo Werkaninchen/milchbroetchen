@@ -24,6 +24,7 @@ config/icon="res://icon.png"
 enums="*res://global/enums.gd"
 SceneChanger="*res://SceneChanger.gd"
 Game="*res://Game.gd"
+Sounds="*res://Sounds/Sounds.gd"
 
 [display]
 
