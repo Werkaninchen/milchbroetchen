@@ -23,6 +23,8 @@ var health = preload("res://Sounds/Health/health.wav")
 var stinky = preload("res://Sounds/Stinky/stinky.wav")
 
 var mine = preload("res://Sounds/Mine/mine.wav")
+
+var power = preload("res://Sounds/Power/power.wav")
 		
 func play_dmg():
 	randomize()
@@ -43,4 +45,8 @@ func play_stinky():
 	
 func play_mine():
 	stream = mine
+	play()
+	
+func play_power():
+	stream = power
 	play()

@@ -19,11 +19,11 @@ func damage_players():
 		var dist = self.global_position.distance_to(player.global_position)
 		print(dist)
 		if dist < 200:
-			player.hit(damage)
+			player.current_health - damage
 			Sounds.play_mine()
 		elif dist < 350:
-			player.hit(damage/2)
+			player.current_health - damage / 2
 			Sounds.play_mine()
 		elif dist < 500:
-			player.hit(damage/3)
+			player.current_health - damage / 3
 			Sounds.play_mine()
