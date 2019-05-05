@@ -4,6 +4,8 @@ var character_scene = preload("res://character/Character.tscn")
 
 var player_screen = preload("res://GameView/PlayerScreen.tscn")
 
+var start_scene = load("res://StartScreen/StartScreen.tscn")
+
 var screens = {}
 
 var game_info
@@ -13,7 +15,7 @@ var game_info
 func _ready():
 	game_info = $VBC/GameInfoPanel/GameInfoText
 	
-	Game.start($World, 2 * 60)
+	Game.start($World, 10)
 	
 	Game.connect("timer_updated", self, "_on_game_timer_updated")
 	
@@ -33,8 +35,13 @@ func _ready():
 			$VBC/HBC2.size_flags_vertical = SIZE_EXPAND_FILL
 			$VBC/HBC2.add_child(new_player_screen)
 		
+func _input(event):
+	if Game.end and event is InputEventJoypadButton:
+		if !event.pressed:
+			if event.button_index == JOY_START:
+				Game.reset()
+				SceneChanger.call_deferred("change_to_scene", start_scene.instance())
 		
-
 func setup_players(players):
 	
 	for player in players:
