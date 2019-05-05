@@ -14,6 +14,8 @@ func _ready():
 	
 	Game.world = $World
 	
+	Game.connect("timer_updated", self, "_on_game_timer_updated")
+	
 	for player in Game.players:
 		var new_player_screen = player_screen.instance()
 		

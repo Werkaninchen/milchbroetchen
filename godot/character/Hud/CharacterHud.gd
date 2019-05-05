@@ -33,8 +33,8 @@ func _on_exp_earned(xp, needed_xp):
 	exp_bar.max_value = needed_xp
 	exp_bar.value = xp
 	
-func _on_level_up(level):
-	level.text = "LV " + level
+func _on_level_up(new_level):
+	level.text = "LV " + str(new_level)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

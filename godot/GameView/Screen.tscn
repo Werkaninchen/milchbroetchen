@@ -23,9 +23,24 @@ size_flags_vertical = 3
 
 [node name="HBC" type="HBoxContainer" parent="VBC"]
 margin_right = 1920.0
-margin_bottom = 1076.0
+margin_bottom = 1012.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="GameInfoPanel" type="Panel" parent="VBC"]
+margin_top = 1016.0
+margin_right = 1920.0
+margin_bottom = 1076.0
+rect_min_size = Vector2( 0, 60 )
+
+[node name="GameInfoText" type="Label" parent="VBC/GameInfoPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "TEXT"
+align = 1
+valign = 1
 
 [node name="HBC2" type="HBoxContainer" parent="VBC"]
 margin_top = 1080.0
