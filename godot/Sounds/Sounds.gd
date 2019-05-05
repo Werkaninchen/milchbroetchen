@@ -27,32 +27,13 @@ var mine = preload("res://Sounds/Mine/mine.wav")
 var speed = preload("res://Sounds/Speed/speed.wav")
 
 var power = preload("res://Sounds/Power/power.wav")
-		
+
+func _ready():
+	connect("finished", self, "on_finished")
+
 func play_dmg():
-	randomize()
-	#stream = dmg[randi() % dmg.size()]
-	play()
+	stream = dmg[int(rand_range(0, dmg.size()))]
+
 	
-func play_poison():
-	#stream = poison[randi() % dmg.size()]
-	play()
-	
-func play_health():
-	stream = health
-	play()
-	
-func play_stinky():
-	stream = stinky
-	play()
-	
-func play_mine():
-	stream = mine
-	play()
-	
-func play_speed():
-	stream = speed
-	play()
-	
-func play_power():
-	stream = power
-	play()
+func on_finished():
+	pass

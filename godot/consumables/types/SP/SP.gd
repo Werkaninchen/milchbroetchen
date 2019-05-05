@@ -16,14 +16,16 @@ func on_body_entered(body):
 	if body is character:
 		incr_speed()
 		timer.start(duration)
-		Sounds.play_speed()
+		sounds.stream = sounds.speed
+		linkBody.add_child(sounds)
+		sounds.play()
 		return
 	queue_free()
 	
 func on_timeout():
-	print("timeout")
 	if linkBody != null:
 		decr_speed()
+		linkBody.remove_child(sounds)
 	queue_free()
 
 func incr_speed():
