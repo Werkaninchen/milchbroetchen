@@ -33,6 +33,7 @@ func _ready():
 
 func play_dmg():
 	stream = dmg[int(rand_range(0, dmg.size()))]
+
 	
 func on_finished():
 	pass

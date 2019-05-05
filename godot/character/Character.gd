@@ -22,7 +22,7 @@ signal attacked
 signal exp_earned(xp, needed)
 
 # warning-ignore:unused_signal
-signal level_up(level)
+signal level_up(level, options)
 
 # warning-ignore:unused_signal
 signal power_up_added(color)
@@ -106,6 +106,8 @@ var controler
 
 var attack
 
+var level_up_options = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_idle()
@@ -114,6 +116,12 @@ func _ready():
 	connect("level_up", self, "_on_level_up")
 	
 	camera = $Camera2D
+	
+	level_up_options.health = 100
+	level_up_options.attack_power = 2
+	level_up_options.defense_power = 2
+	level_up_options.agility = 1.1
+	level_up_options.add_attacks = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -250,7 +258,16 @@ func _set_current_exp(ep):
 		current_exp -= needed_exp
 		needed_exp = needed_exp / EXPSSCALE
 		level += 1
-		emit_signal("level_up", level)
+		
+		var option_keys = level_up_options.keys()
+		var options = {}
+		var key_1 = randi() % option_keys.size()
+		var key_2 = randi() % option_keys.size()
+		
+		options[key_1] = level_up_options[key_1]
+		options[key_2] = level_up_options[key_2]
+		
+		emit_signal("level_up", level, options)
 		
 	emit_signal("exp_earned", current_exp, needed_exp)
 

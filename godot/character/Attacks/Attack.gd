@@ -1,4 +1,4 @@
-extends Node2D
+extends Area2D
 
 var body
 var area
@@ -23,10 +23,10 @@ func _ready():
 	
 
 func attack():
-	if timer.is_stopped() and area.get_overlapping_bodies().size() > 1:
+	if timer.is_stopped() and get_overlapping_bodies().size() > 1:
 		var shots = max_shots
-		while(shots > 0 and area.get_overlapping_bodies().size() > 1):
-			for target in area.get_overlapping_bodies():
+		while(shots > 0 and get_overlapping_bodies().size() > 1):
+			for target in get_overlapping_bodies():
 				if target == body:
 					continue
 				var new_projectile = projectile.instance()
