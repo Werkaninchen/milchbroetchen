@@ -1,18 +1,15 @@
 extends "res://consumables/base/Consumable.gd"
-var character = load("res://character/Character.gd")
 
-var linkBody = null
-export var p_health = 10
+export var health_up = 10
 
-func init_type():
+func init():
 	consumableType = enums.ConsumType.Health
 
 func on_body_entered(body):
+	.on_body_entered(body)
 	if body is character:
-		linkBody = body
-		if linkBody.max_health - p_health > linkBody.current_health:
-			linkBody.current_health = linkBody.current_health + p_health
+		if linkBody.max_health - health_up > linkBody.current_health:
+			linkBody.current_health = linkBody.current_health + health_up
 		elif linkBody.max_health > linkBody.current_health:
 			linkBody.current_health = linkBody.max_health
 		queue_free()
-	pass

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://GameView/Screen.gd" type="Script" id=1]
+[ext_resource path="res://consumables/Consumables.tscn" type="PackedScene" id=2]
 
 [node name="Screen" type="Control"]
 anchor_right = 1.0
@@ -35,3 +36,5 @@ size_flags_horizontal = 3
 [node name="World" type="Viewport" parent="."]
 transparent_bg = true
 gui_disable_input = true
+
+[node name="Consumables" parent="World" instance=ExtResource( 2 )]

@@ -1,29 +1,32 @@
 extends "res://consumables/base/Consumable.gd"
-var character = load("res://character/Character.gd")
 
-var linkBody = null
-export var m_speed = 2
-export var m_acc = 2
-export var m_decc = 2
-export var m_mass = 2
+export var speed_up = 2
+export var acc_up = 2
+export var decc_up = 2
+export var mass_up = 2
 
-func init_type():
+func init():
 	consumableType = enums.ConsumType.Speed
+	.create_timer()
 
 func on_body_entered(body):
+	.on_body_entered(body)
 	if body is character:
-		linkBody = body
-		linkBody.max_speed = linkBody.max_speed * m_speed
-		linkBody.acc = linkBody.acc * m_acc
-		linkBody.decc = linkBody.decc * m_decc
-		linkBody.mass = linkBody.mass / m_mass
-		get_child(0).hide()
+		incr_speed()
 		timer.start(duration)
-	pass
 	
 func on_timeout():
-	linkBody.max_speed = linkBody.max_speed / m_speed
-	linkBody.acc = linkBody.acc / m_acc
-	linkBody.decc = linkBody.decc / m_decc
-	linkBody.mass = linkBody.mass * m_mass
+	decr_speed()
 	queue_free()
+
+func incr_speed():
+	linkBody.max_speed = linkBody.max_speed * speed_up
+	linkBody.acc = linkBody.acc * acc_up
+	linkBody.decc = linkBody.decc * decc_up
+	linkBody.mass = linkBody.mass / mass_up
+
+func decr_speed():
+	linkBody.max_speed = linkBody.max_speed / speed_up
+	linkBody.acc = linkBody.acc / acc_up
+	linkBody.decc = linkBody.decc / decc_up
+	linkBody.mass = linkBody.mass * mass_up

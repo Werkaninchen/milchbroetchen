@@ -1,19 +1,22 @@
 extends Area2D
+var character = load("res://character/Character.gd")
 
 var consumableType
+var linkBody = null
 var timer 
 export var duration = 10
 
 func _ready():
-	init_type()
+	init()
 	connect("body_entered", self, "on_body_entered")
-	create_timer()
 	
-func init_type():
+func init():
 	pass
 	
 func on_body_entered(body):
-	pass
+	if body is character:
+		linkBody = body
+		get_child(0).hide()
 	
 func create_timer():
 	timer = Timer.new()

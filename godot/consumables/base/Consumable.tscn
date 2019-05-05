@@ -5,6 +5,7 @@
 [sub_resource type="ImageTexture" id=1]
 
 [sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32.0015, 31.9799 )
 
 [node name="Consumable" type="Area2D"]
 script = ExtResource( 1 )
