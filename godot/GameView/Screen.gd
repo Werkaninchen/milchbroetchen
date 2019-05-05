@@ -14,9 +14,15 @@ var screens = {}
 
 var game_info
 
+var sounds_pref = load("res://Sounds/Sounds.tscn")
+var sounds 
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	sounds = sounds_pref.instance()
+	sounds.play_game()
+	
 	game_info = $VBC/GameInfoPanel/GameInfoText
 	
 	Game.start($World, 10 * 60)

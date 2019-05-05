@@ -28,12 +28,18 @@ var speed = preload("res://Sounds/Speed/speed.wav")
 
 var power = preload("res://Sounds/Power/power.wav")
 
+var game = preload("res://Sounds/game.ogg")
+
 func _ready():
 	connect("finished", self, "on_finished")
 
 func play_dmg():
 	stream = dmg[int(rand_range(0, dmg.size()))]
+	play()
 
+func play_game():
+	stream = game
+	play()
 	
 func on_finished():
 	pass
