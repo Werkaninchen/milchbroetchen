@@ -56,3 +56,4 @@ gui_disable_input = true
 [node name="Consumables" parent="World" instance=ExtResource( 2 )]
 
 [node name="EnemyContainer" parent="World" instance=ExtResource( 3 )]
+
