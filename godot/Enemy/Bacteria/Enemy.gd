@@ -50,12 +50,10 @@ func handle_state():
 			
 func patrol():
 	if patrol_step < 10:
-		print("Patrol: %s" % [str(patrol_step)] )
 		move_to(get_patrol_point())
 		patrol_step += 1
 	else:
 		patrol_step = 0
-		print("resetting patrol")
 		move_to(spawn_point)
 	
 # ====================
@@ -72,10 +70,11 @@ func kill_self():
 func get_patrol_point():
 	var radius = player_detector.shape.radius
 	var angle = deg2rad(rand_range(0,360))
-	return global_position + radius * Vector2(cos(angle), sin(angle))
+	return get_parent().global_position + radius * Vector2(cos(angle), sin(angle))
 	
 func move_to(target_pos):
 	var distance = global_position.distance_to(target_pos)
+	print(distance)
 	var lerp_velocity = rand_range(MAX_SPEED/3,(MAX_SPEED))
 	var time = distance / lerp_velocity
 	tweener.interpolate_property(get_parent(), "position", global_position, target_pos, time, Tween.TRANS_LINEAR, Tween.EASE_IN)
@@ -100,7 +99,7 @@ func steer():
 
 func on_player_detected(body):
 	if body is Character:
-		print("is character")
+		print("player detected")
 		character = body
 		if character.is_stinky:
 			current_state = state.FLEE
@@ -111,6 +110,7 @@ func on_player_detected(body):
 
 func on_player_exit(body):
 	if body is Character:
+		print("nani!")
 		if body == character:
 			set_physics_process(false)
 			if current_state != state.PATROL:
