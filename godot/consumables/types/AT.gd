@@ -13,5 +13,6 @@ func on_body_entered(body):
 		timer.start(duration)
 	
 func on_timeout():
-	linkBody.attack_power = linkBody.attack_power / power
+	if linkBody != null:
+		linkBody.attack_power = linkBody.attack_power / power
 	queue_free()
