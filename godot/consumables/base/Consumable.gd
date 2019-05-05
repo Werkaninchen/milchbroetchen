@@ -16,10 +16,11 @@ func init():
 func on_body_entered(body):
 	if body is character:
 		linkBody = body
-		get_child(0).hide()
+		hide()
 	
 func create_timer():
 	timer = Timer.new()
+	add_child(timer)
 	timer.set_one_shot(true)
 	timer.connect("timeout", self, "on_timeout")
 	

@@ -26,6 +26,7 @@ func _ready():
 func start(world, start_time):
 	self.world = world
 	game_start_time = start_time
+	game_current_time = game_start_time
 	emit_signal("timer_updated", int(game_current_time))
 	set_process(true)
 
@@ -47,7 +48,7 @@ func _on_timer_finished():
 	var best_player
 	for player in players:
 		if players[player].current_exp >= best_xp:
-			best_xp = player.current_exp
+			best_xp = players[player].current_exp
 	for player in players:
 		if players[player].current_exp == best_xp:
 			players[player].emit_signal("won", player)
