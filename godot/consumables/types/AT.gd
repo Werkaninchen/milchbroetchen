@@ -11,7 +11,6 @@ func on_body_entered(body):
 	if body is character:
 		linkBody.attack_power = linkBody.attack_power * power
 		timer.start(duration)
-	pass
 	
 func on_timeout():
 	linkBody.attack_power = linkBody.attack_power / power

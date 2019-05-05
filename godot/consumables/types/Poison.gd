@@ -12,7 +12,6 @@ func on_body_entered(body):
 	.on_body_entered(body)
 	if body is character:
 		timer.start(frequence)
-	pass
 	
 func on_timeout():
 	if times > 0:		

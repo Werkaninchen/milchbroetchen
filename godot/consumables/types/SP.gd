@@ -14,7 +14,6 @@ func on_body_entered(body):
 	if body is character:
 		incr_speed()
 		timer.start(duration)
-	pass
 	
 func on_timeout():
 	decr_speed()

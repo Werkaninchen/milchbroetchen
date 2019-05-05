@@ -13,4 +13,3 @@ func on_body_entered(body):
 		elif linkBody.max_health > linkBody.current_health:
 			linkBody.current_health = linkBody.max_health
 		queue_free()
-	pass

@@ -17,7 +17,6 @@ func on_body_entered(body):
 	if body is character:
 		linkBody = body
 		get_child(0).hide()
-	pass
 	
 func create_timer():
 	timer = Timer.new()
