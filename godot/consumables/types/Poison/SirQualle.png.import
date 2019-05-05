@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/HealthPlancton.png-f6150682456d6d4a52e58fc995074b00.stex"
+path="res://.import/SirQualle.png-af381ed39217af3dcf14a86d6887dac2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://consumables/HealthPlancton.png"
-dest_files=[ "res://.import/HealthPlancton.png-f6150682456d6d4a52e58fc995074b00.stex" ]
+source_file="res://consumables/types/Poison/SirQualle.png"
+dest_files=[ "res://.import/SirQualle.png-af381ed39217af3dcf14a86d6887dac2.stex" ]
 
 [params]
 
