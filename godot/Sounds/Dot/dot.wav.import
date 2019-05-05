@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/dot.wav-c9cc45a14e1841dd7d8425f91f4a7fbb.sample"
+
+[deps]
+
+source_file="res://Sounds/Dot/dot.wav"
+dest_files=[ "res://.import/dot.wav-c9cc45a14e1841dd7d8425f91f4a7fbb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

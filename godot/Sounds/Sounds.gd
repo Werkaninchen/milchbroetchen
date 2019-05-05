@@ -12,10 +12,15 @@ var tutweh = preload("res://Sounds/Dmg/tutweh.wav")
 var uf = preload("res://Sounds/Dmg/uf.wav")
 var uh = preload("res://Sounds/Dmg/uh.wav")
 var wilhelm = preload("res://Sounds/Dmg/wilhelm.wav")
-
 var dmg = [ah, ah2, au, aua, aua2, autsch, nein, schaefchen, tutweh, uf, uh, wilhelm]
+
+var dot = preload("res://Sounds/Dot/dot.wav")
 		
 func play_dmg():
 	randomize()
 	stream = dmg[rand_range(0, dmg.size())]
+	play()
+	
+func play_dot():
+	stream = dot
 	play()

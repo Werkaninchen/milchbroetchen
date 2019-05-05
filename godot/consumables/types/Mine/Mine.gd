@@ -15,11 +15,12 @@ func on_body_entered(body):
 	queue_free()
 	
 func damage_players():
-	for player in Game.players:
-		var dist = global_position.distance_to(player.global_position)
-		if dist < 100:
+	for player in Game.players.values():
+		var dist = self.global_position.distance_to(player.global_position)
+		print(dist)
+		if dist < 200:
 			player.hit(damage)
-		elif dist < 300:
+		elif dist < 350:
 			player.hit(damage/2)
 		elif dist < 500:
 			player.hit(damage/3)
