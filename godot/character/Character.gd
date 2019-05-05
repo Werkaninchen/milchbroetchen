@@ -88,9 +88,11 @@ enum state {IDLE, MOVEING, EATING, GETHIT, ATTACKING, DYING}
 
 var current_state = state.IDLE
 
-var device_id
+var id
 
 var camera
+
+var controler
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -235,3 +237,13 @@ func _on_died():
 
 func _on_level_up():
 	pass
+
+func register_controler(controler):
+	self.controler = controler
+
+func joy_input(event):
+	controler.joy_input(event)
+	
+func _input(event):
+	if controler:
+		controler.joy_input(event)

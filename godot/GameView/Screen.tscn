@@ -26,3 +26,4 @@ size_flags_vertical = 3
 
 [node name="World" type="Viewport" parent="."]
 transparent_bg = true
+gui_disable_input = true

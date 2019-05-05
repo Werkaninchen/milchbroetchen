@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://GameView/PlayerScreen.gd" type="Script" id=1]
-
-[sub_resource type="ViewportTexture" id=1]
-viewport_path = NodePath("GameView/PlayerViewport")
 
 [node name="PlayerScreen" type="Control"]
 anchor_right = 1.0
@@ -17,12 +14,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = SubResource( 1 )
 expand = true
-stretch_mode = 7
+stretch_mode = 6
 
 [node name="PlayerViewport" type="Viewport" parent="GameView"]
+size = Vector2( 720, 720 )
 transparent_bg = true
+hdr = false
+disable_3d = true
+usage = 0
+render_target_v_flip = true
+gui_disable_input = true
 
 [node name="HUD" type="Control" parent="."]
 anchor_right = 1.0

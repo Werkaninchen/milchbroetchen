@@ -9,16 +9,19 @@ var p4 = {}
 var players = {}
 var timer
 var info
+var player_texts = []
 
 func _ready():
-	p1.text = $VBC/HBC/Player1
-	p1.ready = false
-	p2.text = $VBC/HBC/Player2
-	p2.ready = false
-	p3.text = $VBC/HBC/Player3
-	p3.ready = false
-	p4.text = $VBC/HBC/Player4
-	p4.ready = false
+	player_texts.append($VBC/HBC/Player1)
+	
+	player_texts.append($VBC/HBC/Player2)
+
+	player_texts.append($VBC/HBC2/Player3)
+	
+	player_texts.append($VBC/HBC2/Player4)
+	
+	
+	
 	
 	info = $VBC/Info
 	
@@ -44,7 +47,8 @@ func _input(event):
 					players[event.device].text.text = "Please Press Start"
 					players.erase(event.device)
 				else:
-					players[event.device] = p1
+					players[event.device] = {}
+					players[event.device].text = 
 					players[event.device].text.text = "Please Hold A"
 			
 			if event.button_index == JOY_XBOX_A:
@@ -61,8 +65,8 @@ func _input(event):
 			if players.has(event.device):
 				players[event.device].ready = true
 				players[event.device].text.text = "You Are Ready"
-#				for player in players:
-#					if players[player].ready and player != event.device:
+				for player in players:
+					if players[player].ready and player != event.device:
 				timer.start(5)
 				
 func _on_timer_timeout():
