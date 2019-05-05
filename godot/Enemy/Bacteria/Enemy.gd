@@ -97,7 +97,10 @@ func on_player_detected(body):
 	if not body is Character:
 		return
 	character = body
-	current_state = state.CHASE
+	if character.is_stinky:
+		current_state = state.FLEE
+	else:
+		current_state = state.CHASE
 	tweener.stop_all()	
 	set_physics_process(true)
 
