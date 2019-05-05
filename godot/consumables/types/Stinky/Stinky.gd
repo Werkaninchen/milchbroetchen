@@ -11,6 +11,8 @@ func on_body_entered(body):
 	if body is character:
 		linkBody.is_stinky = true
 		timer.start(duration)
+		Sounds.play_stinky()
+		return
 	queue_free()
 	
 func on_timeout():

@@ -14,13 +14,33 @@ var uh = preload("res://Sounds/Dmg/uh.wav")
 var wilhelm = preload("res://Sounds/Dmg/wilhelm.wav")
 var dmg = [ah, ah2, au, aua, aua2, autsch, nein, schaefchen, tutweh, uf, uh, wilhelm]
 
-var dot = preload("res://Sounds/Dot/dot.wav")
+var poison1 = preload("res://Sounds/Poison/poison1.wav")
+var poison2 = preload("res://Sounds/Poison/poison2.wav")
+var poison = [poison1, poison2]
+
+var health = preload("res://Sounds/Health/health.wav")
+
+var stinky = preload("res://Sounds/Stinky/stinky.wav")
+
+var mine = preload("res://Sounds/Mine/mine.wav")
 		
 func play_dmg():
 	randomize()
 	stream = dmg[rand_range(0, dmg.size())]
 	play()
 	
-func play_dot():
-	stream = dot
+func play_poison():
+	stream = poison[rand_range(0, dmg.size())]
+	play()
+	
+func play_health():
+	stream = health
+	play()
+	
+func play_stinky():
+	stream = stinky
+	play()
+	
+func play_mine():
+	stream = mine
 	play()

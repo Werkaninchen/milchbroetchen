@@ -20,7 +20,10 @@ func damage_players():
 		print(dist)
 		if dist < 200:
 			player.hit(damage)
+			Sounds.play_mine()
 		elif dist < 350:
 			player.hit(damage/2)
+			Sounds.play_mine()
 		elif dist < 500:
 			player.hit(damage/3)
+			Sounds.play_mine()

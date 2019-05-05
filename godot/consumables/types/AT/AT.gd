@@ -13,6 +13,8 @@ func on_body_entered(body):
 	if body is character:
 		linkBody.attack_power = linkBody.attack_power * power
 		timer.start(duration)
+		return
+	queue_free()
 	
 func on_timeout():
 	if linkBody != null:

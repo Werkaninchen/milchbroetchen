@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/dot.wav-c9cc45a14e1841dd7d8425f91f4a7fbb.sample"
+path="res://.import/poison2.wav-ec50ce70634b66e1b27c3570e845e3a4.sample"
 
 [deps]
 
-source_file="res://Sounds/Dot/dot.wav"
-dest_files=[ "res://.import/dot.wav-c9cc45a14e1841dd7d8425f91f4a7fbb.sample" ]
+source_file="res://Sounds/Poison/poison2.wav"
+dest_files=[ "res://.import/poison2.wav-ec50ce70634b66e1b27c3570e845e3a4.sample" ]
 
 [params]
 

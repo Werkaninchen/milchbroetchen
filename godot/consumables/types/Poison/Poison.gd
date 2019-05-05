@@ -14,12 +14,14 @@ func on_body_entered(body):
 	.on_body_entered(body)
 	if body is character:
 		timer.start(frequence)
+		return
+	queue_free()
 	
 func on_timeout():
 	if linkBody != null:
 		if times > 0:		
 			linkBody.current_health - damage
-			Sounds.play_dot()
+			Sounds.play_poison()
 			times -= 1
 			timer.start(frequence)
 			return
