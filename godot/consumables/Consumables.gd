@@ -4,8 +4,9 @@ var xp = load("res://consumables/types/XP.tscn")
 var sp = load("res://consumables/types/SP.tscn")
 var at = load("res://consumables/types/AT.tscn")
 var hl = load("res://consumables/types/HL.tscn")
+var poison = load("res://consumables/types/Poison.tscn")
 export var consumables_amount = 30
-var consumable_prefs = [xp, sp, at, hl]
+var consumable_prefs = [xp, sp, at, hl, poison]
 
 func _ready():
 	create_consumables()
