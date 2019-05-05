@@ -1,6 +1,8 @@
 extends Area2D
-var character = load("res://character/Character.gd")
 
+var character = load("res://character/Character.gd")
+var sounds_pref = load("res://Sounds/Sounds.tscn")
+var sounds
 var consumableType
 var linkBody = null
 var timer 
@@ -8,8 +10,9 @@ export var duration = 10
 
 func _ready():
 	init()
+	sounds = sounds_pref.instance()
 	connect("body_entered", self, "on_body_entered")
-	
+	sounds.connect("finished", self, "on_finished")
 func init():
 	pass
 	
@@ -25,4 +28,7 @@ func create_timer():
 	timer.connect("timeout", self, "on_timeout")
 	
 func on_timeout():
+	pass
+	
+func on_finished():
 	pass
