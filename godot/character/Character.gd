@@ -56,7 +56,7 @@ export (int, 1, 1000) var ORIG_DEFENSE = 10
 export (int) var EXPFIRSTLEVEL = 1000
 
 #diminisher for xp need
-export (float, 0.1, 1) var EXPSSCALE
+export (float, 0.1, 1) var EXPSSCALE = 0.5
 
 var max_speed = ORIG_MAXSPEED
 

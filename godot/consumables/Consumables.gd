@@ -25,7 +25,6 @@ func create_consumables():
 	for i in range(consumables_amount):
 		var consumable = consumable_prefs[rand_range(0, consumable_prefs.size())].instance()
 		consumable.position = get_rand_display_pos()
-		consumable.size = consumables_size
 		add_child(consumable)
 		
 func get_rand_display_pos():
