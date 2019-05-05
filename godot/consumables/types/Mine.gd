@@ -4,13 +4,15 @@ export var damage = 50
 
 func init():
 	consumableType = enums.ConsumType.Mine
+	
+func _ready():
 	.create_timer()
 
 func on_body_entered(body):
 	.on_body_entered(body)
 	if body is character:
 		damage_players()
-		queue_free()
+	queue_free()
 	
 func damage_players():
 	for player in Game.players:
