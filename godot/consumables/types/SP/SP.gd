@@ -16,6 +16,7 @@ func on_body_entered(body):
 	if body is character:
 		incr_speed()
 		timer.start(duration)
+		Sounds.play_speed()
 		return
 	queue_free()
 	

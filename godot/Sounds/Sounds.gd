@@ -24,6 +24,8 @@ var stinky = preload("res://Sounds/Stinky/stinky.wav")
 
 var mine = preload("res://Sounds/Mine/mine.wav")
 
+var speed = preload("res://Sounds/Speed/speed.wav")
+
 var power = preload("res://Sounds/Power/power.wav")
 		
 func play_dmg():
@@ -45,6 +47,10 @@ func play_stinky():
 	
 func play_mine():
 	stream = mine
+	play()
+	
+func play_speed():
+	stream = speed
 	play()
 	
 func play_power():

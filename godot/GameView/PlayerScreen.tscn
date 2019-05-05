@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://GameView/PlayerScreen.gd" type="Script" id=1]
-[ext_resource path="res://character/Hud/CharacterHud.tscn" type="PackedScene" id=2]
+[ext_resource path="res://background.png" type="Texture" id=2]
+[ext_resource path="res://character/Hud/CharacterHud.tscn" type="PackedScene" id=3]
 
 [node name="PlayerScreen" type="Control"]
 anchor_right = 1.0
@@ -51,8 +52,9 @@ gui_disable_input = true
 layer = -1
 
 [node name="Sprite" type="Sprite" parent="MC/GameView/PlayerViewport/CanvasLayer"]
+texture = ExtResource( 2 )
 
-[node name="CharacterHud" parent="MC" instance=ExtResource( 2 )]
+[node name="CharacterHud" parent="MC" instance=ExtResource( 3 )]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1900.0
