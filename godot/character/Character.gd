@@ -249,7 +249,7 @@ func _on_died():
 	emit_signal("died", id)
 	queue_free()
 
-func _on_level_up():
+func _on_level_up(level):
 	pass
 
 func register_controler(controler):

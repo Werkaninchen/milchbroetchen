@@ -13,7 +13,7 @@ var game_info
 func _ready():
 	game_info = $VBC/GameInfoPanel/GameInfoText
 	
-	Game.start($world, 2 * 60)
+	Game.start($World, 2 * 60)
 	
 	Game.connect("timer_updated", self, "_on_game_timer_updated")
 	
@@ -46,4 +46,4 @@ func setup_players(players):
 		$World.add_child(new_player)
 	
 func _on_game_timer_updated(time):
-	game_info.text = "Time till the best one wins: " + str(ceil(float(time) / 60)) + ":" + str(time % 60)
+	game_info.text = "Time till the best one wins: " + str(floor(float(time) / 60)) + ":" + str(time % 60)
