@@ -6,6 +6,10 @@ var player_screen = preload("res://GameView/PlayerScreen.tscn")
 
 var start_scene = load("res://StartScreen/StartScreen.tscn")
 
+var consumables = preload("res://consumables/Consumables.tscn")
+
+var enemies = preload("res://Enemy/Container/EnemyContainer.tscn")
+
 var screens = {}
 
 var game_info
@@ -34,6 +38,15 @@ func _ready():
 		else:
 			$VBC/HBC2.size_flags_vertical = SIZE_EXPAND_FILL
 			$VBC/HBC2.add_child(new_player_screen)
+			
+	var c_container = consumables.instance()
+	var e_container = enemies.instance()
+	Game.world.add_child(c_container)
+	Game.world.add_child(e_container)
+	
+	
+	c_container.setup(10, Game.world_rect)
+	e_container.setup(3, Game.world_rect)
 		
 func _input(event):
 	if Game.end and event is InputEventJoypadButton:

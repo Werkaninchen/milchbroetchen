@@ -6,7 +6,7 @@ var timer
 
 var cooldown = 2
 
-var max_shots = 5
+var max_shots = 3
 
 var projectile = preload("res://character/Attacks/DamageProjectile.tscn")
 
