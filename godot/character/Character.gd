@@ -15,10 +15,10 @@ signal died
 signal attacked
 
 # warning-ignore:unused_signal
-signal exp_earned
+signal exp_earned(xp, needed)
 
 # warning-ignore:unused_signal
-signal level_up
+signal level_up(level)
 
 # warning-ignore:unused_signal
 signal power_up_added(color)
@@ -32,7 +32,7 @@ signal power_up_removed
 signal debuff_removed
 
 # warning-ignore:unused_signal
-signal health_changed
+signal health_changed(health)
 
 #maxspeed in pixel per seconds
 export (int, 1, 200) var ORIG_MAXSPEED = 200
@@ -76,7 +76,9 @@ var defense = ORIG_DEFENSE
 
 var needed_exp = EXPFIRSTLEVEL
 
-var current_exp = 0
+var current_exp = 0 setget _set_current_exp
+
+var level = 0
 
 var movement_vector = Vector2(0, 0)
 
@@ -86,12 +88,20 @@ enum state {IDLE, MOVEING, EATING, GETHIT, ATTACKING, DYING}
 
 var current_state = state.IDLE
 
+var id
+
+var camera
+
+var controler
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_idle()
 # warning-ignore:return_value_discarded
 	connect("died", self, "_on_died")
 	connect("level_up", self, "_on_level_up")
+	
+	camera = $Camera2D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -150,7 +160,10 @@ func idle(delta):
 			movement_vector = Vector2(0, 0)
 		
 		else:
-			move_and_collide(movement_vector * delta)
+			var collider = move_and_collide(movement_vector * delta)
+			
+			if collider:
+				movement_vector = Vector2(0, 0)
 	
 		
 	
@@ -172,7 +185,10 @@ func moveing(delta):
 	#global_rotation = movement_vector.angle()
 
 
-	move_and_collide(movement_vector * delta)
+	var collider = move_and_collide(movement_vector * delta)
+	
+	if collider:
+		movement_vector = Vector2(0, 0)
 	
 		
 	
@@ -196,7 +212,10 @@ func dying(delta):
 			movement_vector = Vector2(0, 0)
 		
 		else:
-			move_and_collide(movement_vector * delta)
+			var collider = move_and_collide(movement_vector * delta)
+			
+			if collider:
+				movement_vector = Vector2(0, 0)
 	
 func hit(damage):
 	current_health = clamp(current_health - clamp(damage - defense, 0, damage), 0, max_health)
@@ -217,7 +236,8 @@ func _set_current_exp(ep):
 	if current_exp >= needed_exp:
 		current_exp -= needed_exp
 		needed_exp = needed_exp / EXPSSCALE
-		emit_signal("level_up")
+		level += 1
+		emit_signal("level_up", level)
 		
 	emit_signal("exp_earned", current_exp, needed_exp)
 
@@ -226,3 +246,13 @@ func _on_died():
 
 func _on_level_up():
 	pass
+
+func register_controler(controler):
+	self.controler = controler
+
+func joy_input(event):
+	controler.joy_input(event)
+	
+func _input(event):
+	if controler:
+		controler.joy_input(event)

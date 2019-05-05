@@ -1,7 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://consumables/base/Consumable.tscn" type="PackedScene" id=1]
 [ext_resource path="res://consumables/types/SP.gd" type="Script" id=2]
+[ext_resource path="res://consumables/SpeedPlancton.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32.0043, 31.8154 )
 
 [node name="SP" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+modulate = Color( 0, 0.905882, 1, 1 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
