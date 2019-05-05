@@ -37,7 +37,8 @@ func _physics_process(delta):
 #player_target = get_viewport().get_mouse_position()
 	
 func _draw():
-	draw_line(Vector2(), kinematic_velocity, Color(255,0,0))
+	if character:
+		draw_line(Vector2(), kinematic_velocity, Color(255,0,0))
 
 # ====================
 # 	State Handlers
@@ -97,7 +98,10 @@ func on_player_detected(body):
 	if not body is Character:
 		return
 	character = body
-	current_state = state.CHASE
+	if character.is_stinky:
+		current_state = state.FLEE
+	else:
+		current_state = state.CHASE
 	tweener.stop_all()	
 	set_physics_process(true)
 

@@ -90,6 +90,8 @@ enum state {IDLE, MOVEING, EATING, GETHIT, ATTACKING, DYING}
 
 var current_state = state.IDLE
 
+var is_stinky = false
+
 var id
 
 var camera
