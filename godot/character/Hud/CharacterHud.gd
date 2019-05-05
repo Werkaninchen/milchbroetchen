@@ -10,7 +10,7 @@ var character
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	character = get_parent()
+	character = get_parent().get_parent().player
 	exp_bar = $HBC/EXPBar
 	health_bar = $HealthBar
 	level = $HBC/Level
