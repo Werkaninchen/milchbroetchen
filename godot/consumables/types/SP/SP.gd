@@ -18,6 +18,7 @@ func on_body_entered(body):
 		timer.start(duration)
 	
 func on_timeout():
+	print("timeout")
 	if linkBody != null:
 		decr_speed()
 	queue_free()
