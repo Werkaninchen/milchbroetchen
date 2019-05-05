@@ -259,12 +259,13 @@ func _set_current_exp(ep):
 		needed_exp = needed_exp / EXPSSCALE
 		level += 1
 		
-		var option_keys = level_up_options.keys().shuffle().resize(2)
-		
+		var option_keys = level_up_options.keys()
 		var options = {}
+		var key_1 = randi() % option_keys.size()
+		var key_2 = randi() % option_keys.size()
 		
-		options[option_keys[0]] = level_up_options[option_keys[0]]
-		options[option_keys[1]] = level_up_options[option_keys[1]]
+		options[key_1] = level_up_options[key_1]
+		options[key_2] = level_up_options[key_2]
 		
 		emit_signal("level_up", level, options)
 		
