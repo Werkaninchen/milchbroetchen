@@ -64,7 +64,7 @@ color = Color( 0.509804, 0, 0, 0.513726 )
 [node name="DeadText" type="Label" parent="MC/DeadScreen"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "You Died, Loser..."
+text = "You died, loser..."
 align = 1
 valign = 1
 
@@ -80,5 +80,20 @@ color = Color( 0, 0.509804, 0.00784314, 0.513726 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Congratulations! You are the freaking best bakteria out there!"
+align = 1
+valign = 1
+
+[node name="LostScreen" type="ColorRect" parent="MC"]
+visible = false
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1900.0
+margin_bottom = 1060.0
+color = Color( 0.509804, 0, 0, 0.513726 )
+
+[node name="LostText" type="Label" parent="MC/LostScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Buuuh! You lost, loser!"
 align = 1
 valign = 1

@@ -13,6 +13,8 @@ signal died(id)
 
 signal won(id)
 
+signal lost(id)
+
 # warning-ignore:unused_signal
 signal attacked
 
@@ -152,6 +154,7 @@ func start_attacking():
 func start_dying():
 	current_state = state.DYING
 	emit_signal("state_changed", "DYING")
+	emit_signal("died", id)
 	
 func idle(delta):
 	if wanted_direction != Vector2(0, 0):
@@ -210,6 +213,7 @@ func attacking(delta):
 	pass
 	
 func dying(delta):
+	
 	if movement_vector != Vector2(0,0):
 		movement_vector -= movement_vector.normalized() * decc * delta
 	
@@ -230,7 +234,8 @@ func hit(damage):
 func _set_current_health(health):
 	current_health = clamp(health, 0, max_health)
 	if current_health == 0:
-		start_dying()
+		if current_state != state.DYING:
+			start_dying()
 	emit_signal("health_changed", health)
 	
 func _set_current_exp(ep):
@@ -243,8 +248,7 @@ func _set_current_exp(ep):
 		
 	emit_signal("exp_earned", current_exp, needed_exp)
 
-func _on_died():
-	emit_signal("died", id)
+func _on_died(id):
 	queue_free()
 
 func _on_level_up(level):
