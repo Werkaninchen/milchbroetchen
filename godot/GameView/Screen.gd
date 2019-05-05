@@ -7,6 +7,8 @@ var player_screen = preload("res://GameView/PlayerScreen.tscn")
 var screens = {}
 
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -33,7 +35,8 @@ func setup_players(players):
 	for player in players:
 		var new_player = character_scene.instance()
 		Game.players[player] = new_player
-		new_player.id = player
+		Game.player_colors.shuffle()
+		new_player.set_up(Game.world_rect, Game.player_colors.pop_back(), player)
 		$World.add_child(new_player)
 	
 	

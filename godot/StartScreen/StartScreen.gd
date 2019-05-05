@@ -12,6 +12,8 @@ var info
 var player_texts = []
 
 func _ready():
+	randomize()
+	
 	player_texts.append($VBC/HBC/Player1)
 	
 	player_texts.append($VBC/HBC/Player2)

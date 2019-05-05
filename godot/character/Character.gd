@@ -256,3 +256,12 @@ func joy_input(event):
 func _input(event):
 	if controler:
 		controler.joy_input(event)
+		
+func set_up(spawn_rect, color, id):
+	
+	global_position = Vector2(rand_range(spawn_rect.position.x, spawn_rect.end.x),
+			rand_range(spawn_rect.position.y, spawn_rect.end.y))
+			
+	$Sprite.modulate = color
+	
+	self.id = id
