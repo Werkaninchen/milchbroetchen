@@ -8,18 +8,17 @@ var poison = load("res://consumables/types/Poison/Poison.tscn")
 var mine = load("res://consumables/types/Mine/Mine.tscn")
 var stinky = load("res://consumables/types/Stinky/Stinky.tscn")
 var consumable_prefs = [xp, sp, at, hl, poison, mine, stinky]
-export var consumables_amount = 20
+export var consumables_amount = 10
 export var consumables_size = 1
 export var rect = Rect2(0, 0, 1920, 1080)
 
 func _ready():
-	randomize()
-	create_consumables()
+	pass
 	
-func setup(amount, size, rect):
+func setup(amount, rect):
 	consumables_amount = amount
-	consumables_size = size
 	self.rect = rect
+	create_consumables()
 
 func create_consumables():
 	for i in range(consumables_amount):
