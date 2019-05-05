@@ -8,20 +8,17 @@ var poison = load("res://consumables/types/Poison/Poison.tscn")
 var mine = load("res://consumables/types/Mine/Mine.tscn")
 var stinky = load("res://consumables/types/Stinky/Stinky.tscn")
 var consumable_prefs = [xp, sp, at, hl, poison, mine, stinky]
-export var consumables_amount = 30
+export var consumables_amount = 10
 export var consumables_size = 1
-export var map_width = 1920
-export var map_height = 1080
+export var rect = Rect2(0, 0, 1920, 1080)
 
 func _ready():
-	randomize()
-	create_consumables()
+	pass
 	
-func setup(amount, size, width, height):
+func setup(amount, rect):
 	consumables_amount = amount
-	consumables_size = size
-	map_width = width
-	map_height = height
+	self.rect = rect
+	create_consumables()
 
 func create_consumables():
 	for i in range(consumables_amount):
@@ -30,6 +27,6 @@ func create_consumables():
 		add_child(consumable)
 		
 func get_rand_display_pos():
-	var x = rand_range(0, map_width)
-	var y = rand_range(0, map_height)
+	var x = rand_range(rect.position.x, rect.end.x)
+	var y = rand_range(rect.position.y, rect.end.y)
 	return Vector2(x, y)

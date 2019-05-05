@@ -14,6 +14,7 @@ var world
 func _ready():
 	player.connect("died", self, "_on_player_died")
 	player.connect("won", self, "_on_player_won")
+	player.connect("lost", self, "_on_player_lost")
 	
 	player_game_view = $MC/GameView
 	player_game_world = $MC/GameView/PlayerViewport
@@ -38,4 +39,7 @@ func _on_player_died(id):
 	
 func _on_player_won(id):
 	$MC/WinScreen.visible = true
+	
+func _on_player_lost(id):
+	$MC/LostScreen.visible = true
 

@@ -32,7 +32,11 @@ func joy_input(event):
 				
 			else:
 				body.wanted_direction.y = 0
-				
+	
+	if event is InputEventJoypadButton:
+		if event.button_index == JOY_R2:
+			body.attack.attack()
+	
 	#	# set looking direction
 	#	if event.axis == JOY_AXIS_2:
 	#		if abs(event.axis_value) > 0.1:

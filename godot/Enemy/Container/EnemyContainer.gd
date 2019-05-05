@@ -4,7 +4,7 @@ export var spawn_distance_limit = 400
 var enemy_types : Array = [preload("res://Enemy/Bacteria/Enemy.tscn")]
 
 func _ready():
-	setup(50, Game.world_rect)
+	pass
 
 func setup(amount: int , spawn_area: Rect2):
 	var start : Vector2  = spawn_area.position
