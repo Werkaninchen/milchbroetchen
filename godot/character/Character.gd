@@ -160,7 +160,10 @@ func idle(delta):
 			movement_vector = Vector2(0, 0)
 		
 		else:
-			move_and_collide(movement_vector * delta)
+			var collider = move_and_collide(movement_vector * delta)
+			
+			if collider:
+				movement_vector = Vector2(0, 0)
 	
 		
 	
@@ -182,7 +185,10 @@ func moveing(delta):
 	#global_rotation = movement_vector.angle()
 
 
-	move_and_collide(movement_vector * delta)
+	var collider = move_and_collide(movement_vector * delta)
+	
+	if collider:
+		movement_vector = Vector2(0, 0)
 	
 		
 	
@@ -206,7 +212,10 @@ func dying(delta):
 			movement_vector = Vector2(0, 0)
 		
 		else:
-			move_and_collide(movement_vector * delta)
+			var collider = move_and_collide(movement_vector * delta)
+			
+			if collider:
+				movement_vector = Vector2(0, 0)
 	
 func hit(damage):
 	current_health = clamp(current_health - clamp(damage - defense, 0, damage), 0, max_health)
