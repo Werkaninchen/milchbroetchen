@@ -6,6 +6,8 @@ export var times = 10
 
 func init():
 	consumableType = enums.ConsumType.Poison
+	
+func _ready():
 	.create_timer()
 
 func on_body_entered(body):

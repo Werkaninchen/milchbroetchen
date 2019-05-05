@@ -4,6 +4,8 @@ export var damage = 50
 
 func init():
 	consumableType = enums.ConsumType.Mine
+	
+func _ready():
 	.create_timer()
 
 func on_body_entered(body):

@@ -7,6 +7,8 @@ export var mass_down = 2
 
 func init():
 	consumableType = enums.ConsumType.Speed
+	
+func _ready():
 	.create_timer()
 
 func on_body_entered(body):

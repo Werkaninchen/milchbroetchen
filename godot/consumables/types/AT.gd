@@ -4,6 +4,8 @@ export var power = 2
 
 func init():
 	consumableType = enums.ConsumType.Attack
+
+func _ready():
 	.create_timer()
 
 func on_body_entered(body):
