@@ -158,6 +158,7 @@ func start_eating():
 	
 func start_gethit():
 	current_state = state.GETHIT
+	Sounds.play_dmg()
 	emit_signal("state_changed", "GETHIT")
 	
 func start_attacking():
