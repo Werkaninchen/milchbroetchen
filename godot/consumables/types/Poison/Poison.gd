@@ -18,7 +18,7 @@ func on_body_entered(body):
 func on_timeout():
 	if linkBody != null:
 		if times > 0:		
-			linkBody.current_health = linkBody.current_health - damage
+			linkBody.hit(damage)
 			times - 1
 			timer.start(frequence)
 	queue_free()

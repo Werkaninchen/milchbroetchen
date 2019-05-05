@@ -18,8 +18,8 @@ func damage_players():
 	for player in Game.players:
 		var dist = global_position.distance_to(player.global_position)
 		if dist < 100:
-			player.current_health - damage
+			player.hit(damage)
 		elif dist < 300:
-			player.current_health - damage / 2
+			player.hit(damage/2)
 		elif dist < 500:
-			player.current_health - damage / 3
+			player.hit(damage/3)

@@ -222,10 +222,7 @@ func dying(delta):
 				movement_vector = Vector2(0, 0)
 	
 func hit(damage):
-	current_health = clamp(current_health - clamp(damage - defense, 0, damage), 0, max_health)
-	if current_health == 0:
-		start_dying()
-		return
+	self.current_health = clamp(current_health - clamp(damage - defense, 0, damage), 0, max_health)
 	start_gethit() 
 	
 	
