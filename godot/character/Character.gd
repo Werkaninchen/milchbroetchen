@@ -9,7 +9,9 @@ signal state_changed(state)
 signal hit(damage)
 
 # warning-ignore:unused_signal
-signal died
+signal died(id)
+
+signal won(id)
 
 # warning-ignore:unused_signal
 signal attacked
@@ -242,6 +244,7 @@ func _set_current_exp(ep):
 	emit_signal("exp_earned", current_exp, needed_exp)
 
 func _on_died():
+	emit_signal("died", id)
 	queue_free()
 
 func _on_level_up():

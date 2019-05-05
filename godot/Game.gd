@@ -18,16 +18,47 @@ var player_colors = [ColorN("red"), ColorN("yellow"), ColorN("green"), ColorN("b
 
 var world_rect = Rect2(0, 0, 1920, 1080)
 
-func _ready():
+func _ready():	
+	set_process(false)
+	connect("timer_finished", self, "_on_timer_finished")
 	pass # Replace with function body.
+	
+func start(world, start_time):
+	self.world = world
+	game_start_time = start_time
+	emit_signal("timer_updated", int(game_current_time))
+	set_process(true)
 
 
 func _process(delta):
-	update_frame -= delta
-	if update_frame <= 0:
-		update_frame = 1
-		emit_signal("timer_updated")
-	game_current_time -= delta
 	if game_current_time <= 0:
 		emit_signal("timer_finished")
 		set_process(false)
+		
+	update_frame -= delta
+	
+	if update_frame <= 0:
+		update_frame = 1
+		emit_signal("timer_updated", int(game_current_time))
+	game_current_time -= delta
+
+func _on_timer_finished():
+	var best_xp = 0
+	var best_player
+	for player in players:
+		if players[player].current_exp >= best_xp:
+			best_xp = player.current_exp
+	for player in players:
+		if players[player].current_exp == best_xp:
+			players[player].emit_signal("won", player)
+	set_process(false)
+		
+	
+func _on_player_died(id):
+	players.erase(id)
+	if players.size() == 1:
+		for player in players:
+			players[player].emit_signal("won", player)
+			set_process(false)
+
+	

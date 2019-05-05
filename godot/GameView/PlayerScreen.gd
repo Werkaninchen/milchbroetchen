@@ -12,6 +12,9 @@ var world
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	player.connect("died", self, "_on_player_died")
+	player.connect("won", self, "_on_player_won")
+	
 	player_game_view = $MC/GameView
 	player_game_world = $MC/GameView/PlayerViewport
 	player_game_view.texture = player_game_world.get_texture()
@@ -28,4 +31,11 @@ func set_up_player_game(world, player):
 func _input(event):
 	if event.device == player.id:
 		player.joy_input(event)
+		
+func _on_player_died(id):
+	$MC/DeadScreen.visible = true
+	set_process_input(false)
+	
+func _on_player_won(id):
+	$MC/WinScreen.visible = true
 
