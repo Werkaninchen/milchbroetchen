@@ -34,7 +34,7 @@ func _physics_process(delta):
 	if collision:
 		if collision.collider is Character:
 			var collided_player : Character = collision.collider
-			#collided_player.hit(20)
+			collided_player.hit(20)
 			kill_self(collision.position)
 #player_target = get_viewport().get_mouse_position()
 	

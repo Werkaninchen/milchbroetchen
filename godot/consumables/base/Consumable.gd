@@ -6,7 +6,7 @@ var sounds
 var consumableType
 var linkBody = null
 var timer 
-export var duration = 10
+export var duration = 4
 
 func _ready():
 	init()
