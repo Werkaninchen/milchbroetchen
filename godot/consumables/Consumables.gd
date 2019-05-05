@@ -1,11 +1,13 @@
 extends Node
 
-var xp = load("res://consumables/types/XP.tscn")
-var sp = load("res://consumables/types/SP.tscn")
-var at = load("res://consumables/types/AT.tscn")
-var hl = load("res://consumables/types/HL.tscn")
-var poison = load("res://consumables/types/Poison.tscn")
-var consumable_prefs = [xp, sp, at, hl, poison]
+var xp = load("res://consumables/types/XP/XP.tscn")
+var sp = load("res://consumables/types/SP/SP.tscn")
+var at = load("res://consumables/types/AT/AT.tscn")
+var hl = load("res://consumables/types/HL/HL.tscn")
+var poison = load("res://consumables/types/Poison/Poison.tscn")
+var mine = load("res://consumables/types/Mine/Mine.tscn")
+var stinky = load("res://consumables/types/Stinky/Stinky.tscn")
+var consumable_prefs = [xp, sp, at, hl, poison, mine, stinky]
 export var consumables_amount = 30
 export var consumables_size = 1
 export var map_width = 1920

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SpeedPlancton.png-4e7fabe87df26dd6ad1977a445229df6.stex"
+path="res://.import/XPlancton.png-be7d2a4b3ab5714d715fbd082a659a52.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://consumables/SpeedPlancton.png"
-dest_files=[ "res://.import/SpeedPlancton.png-4e7fabe87df26dd6ad1977a445229df6.stex" ]
+source_file="res://consumables/types/XP/XPlancton.png"
+dest_files=[ "res://.import/XPlancton.png-be7d2a4b3ab5714d715fbd082a659a52.stex" ]
 
 [params]
 

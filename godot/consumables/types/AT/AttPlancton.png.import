@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/AttPlancton.png-d7be98c665fbc8ee22c8d8cb8c56385f.stex"
+path="res://.import/AttPlancton.png-341d7b5f6afda6c61f6807d227762f3f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://consumables/AttPlancton.png"
-dest_files=[ "res://.import/AttPlancton.png-d7be98c665fbc8ee22c8d8cb8c56385f.stex" ]
+source_file="res://consumables/types/AT/AttPlancton.png"
+dest_files=[ "res://.import/AttPlancton.png-341d7b5f6afda6c61f6807d227762f3f.stex" ]
 
 [params]
 
