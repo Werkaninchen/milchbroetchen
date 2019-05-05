@@ -36,7 +36,7 @@ signal power_up_removed
 signal debuff_removed
 
 # warning-ignore:unused_signal
-signal health_changed(health)
+signal health_changed(health, max_health)
 
 #maxspeed in pixel per seconds
 export (int, 1, 200) var ORIG_MAXSPEED = 200
@@ -115,9 +115,10 @@ func _ready():
 	connect("died", self, "_on_died")
 	connect("level_up", self, "_on_level_up")
 	
+	
 	camera = $Camera2D
 	
-	level_up_options.health = 100
+	level_up_options.health = 20
 	level_up_options.attack_power = 2
 	level_up_options.defense_power = 2
 	level_up_options.agility = 1.1
@@ -250,7 +251,7 @@ func _set_current_health(health):
 	if current_health == 0:
 		if current_state != state.DYING:
 			start_dying()
-	emit_signal("health_changed", health)
+	emit_signal("health_changed", health, max_health)
 	
 func _set_current_exp(ep):
 	current_exp = ep
@@ -260,12 +261,10 @@ func _set_current_exp(ep):
 		level += 1
 		
 		var option_keys = level_up_options.keys()
-		var options = {}
-		var key_1 = randi() % option_keys.size()
-		var key_2 = randi() % option_keys.size()
+		var key_1 = option_keys[randi() % option_keys.size()]
+		var key_2 = option_keys[randi() % option_keys.size()]
+		var options = [key_1, key_2]
 		
-		options[key_1] = level_up_options[key_1]
-		options[key_2] = level_up_options[key_2]
 		
 		emit_signal("level_up", level, options)
 		
@@ -274,8 +273,22 @@ func _set_current_exp(ep):
 func _on_died(id):
 	queue_free()
 
-func _on_level_up(level):
-	pass
+func _on_level_up_chosen(option):
+	match option:
+		"health":
+			self.max_health += level_up_options[option]
+		"attack_power":
+			attack_power += level_up_options[option]
+		"defense_power":
+			defense += level_up_options[option]
+		"agility":
+			max_speed *= level_up_options[option]
+			acc *= level_up_options[option]
+			decc *= level_up_options[option]
+			mass /= level_up_options[option]
+		"add_attacks":
+			add_attacks += level_up_options[option]
+	current_health = max_health
 
 func register_controler(controler):
 	self.controler = controler

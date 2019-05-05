@@ -30,11 +30,11 @@ var power = preload("res://Sounds/Power/power.wav")
 		
 func play_dmg():
 	randomize()
-	stream = dmg[int(rand_range(0, dmg.size()))]
+	#stream = dmg[randi() % dmg.size()]
 	play()
 	
 func play_poison():
-	stream = poison[int(rand_range(0, dmg.size()))]
+	#stream = poison[randi() % dmg.size()]
 	play()
 	
 func play_health():

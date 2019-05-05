@@ -45,7 +45,7 @@ func _ready():
 	Game.world.add_child(e_container)
 	
 	
-	c_container.setup(10, Game.world_rect)
+	c_container.setup(30, Game.world_rect)
 	e_container.setup(3, Game.world_rect)
 		
 func _input(event):

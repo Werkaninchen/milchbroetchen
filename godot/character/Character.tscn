@@ -56,3 +56,4 @@ script = ExtResource( 6 )
 shape = SubResource( 3 )
 
 [node name="Timer" type="Timer" parent="Attack"]
+one_shot = true
