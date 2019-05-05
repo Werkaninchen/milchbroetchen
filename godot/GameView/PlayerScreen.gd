@@ -19,9 +19,9 @@ func _ready():
 	camera2d.custom_viewport = player_game_world
 	camera2d.current = true
 
-func set_up_player_game(world, camera, player):
+func set_up_player_game(world, player):
 	self.world = world
-	camera2d = camera
+	camera2d = player.camera
 	self.player = player
 	
 	
