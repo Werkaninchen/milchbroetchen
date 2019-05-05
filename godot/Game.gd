@@ -18,7 +18,7 @@ var players = {}
 
 var player_colors = [ColorN("red"), ColorN("yellow"), ColorN("green"), ColorN("blue")]
 
-var world_rect = Rect2(0, 0, 1920, 1080)
+var world_rect = Rect2(0, 0, 100, 100)
 
 func _ready():	
 	set_process(false)

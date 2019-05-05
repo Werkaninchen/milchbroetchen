@@ -54,6 +54,8 @@ export (int, 1, 1000) var ORIG_HEALTH = 100
 
 export (int, 1, 1000) var ORIG_ATTACKPOWER = 10
 
+export (int, 1, 100) var ORIG_ADDATTACKS = 0
+
 export (int, 1, 1000) var ORIG_DEFENSE = 10
 
 #needed EXP for first Level
@@ -75,6 +77,8 @@ var max_health = ORIG_HEALTH
 var current_health = ORIG_HEALTH setget _set_current_health
 
 var attack_power = ORIG_ATTACKPOWER
+
+var add_attacks = ORIG_ADDATTACKS
 
 var defense = ORIG_DEFENSE
 
@@ -99,6 +103,8 @@ var id
 var camera
 
 var controler
+
+var attack
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -255,6 +261,13 @@ func _on_level_up(level):
 
 func register_controler(controler):
 	self.controler = controler
+	
+func register_attack(attack):
+	self.attack = attack
+
+func change_attack(new_attack):
+	self.attack.queue_free()
+	register_attack(new_attack)
 
 func joy_input(event):
 	controler.joy_input(event)

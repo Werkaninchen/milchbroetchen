@@ -15,7 +15,7 @@ var game_info
 func _ready():
 	game_info = $VBC/GameInfoPanel/GameInfoText
 	
-	Game.start($World, 10)
+	Game.start($World, 10 * 60)
 	
 	Game.connect("timer_updated", self, "_on_game_timer_updated")
 	

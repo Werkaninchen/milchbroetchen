@@ -8,7 +8,7 @@ var poison = load("res://consumables/types/Poison/Poison.tscn")
 var mine = load("res://consumables/types/Mine/Mine.tscn")
 var stinky = load("res://consumables/types/Stinky/Stinky.tscn")
 var consumable_prefs = [xp, sp, at, hl, poison, mine, stinky]
-export var consumables_amount = 20
+export var consumables_amount = 0
 export var consumables_size = 1
 export var rect = Rect2(0, 0, 1920, 1080)
 
