@@ -28,6 +28,8 @@ func _process(delta):
 	update()
 
 func _physics_process(delta):
+	if is_queued_for_deletion() or current_state == state.PATROL:
+		return
 	kinematic_velocity = steer()
 	var collision = move_and_collide(kinematic_velocity * delta)
 	
@@ -77,9 +79,10 @@ func kill_self(pos: Vector2):
 	$Properties.queue_free()
 	$Hitbox.queue_free()
 	death_explosion.set_emitting(true)
-
-	yield(get_tree().create_timer(death_explosion.lifetime), "timeout")
-	queue_free()
+	
+	$Timer.start(death_explosion.lifetime)
+	yield($Timer, "timeout")
+	call_deferred("free")
 	
 	
 func get_patrol_point():
@@ -102,18 +105,18 @@ func tween_movement(vel: Vector2):
 	move_and_collide(vel)
 	
 func steer():
-	if not is_instance_valid(character):
-		current_state = state.PATROL
-		return Vector2()
-
-	var target = character.global_position
-	var desired_velocity = (target - global_position).normalized() * MAX_SPEED
-	if state.FLEE == current_state:
-		desired_velocity = -desired_velocity
-	var acceleration = desired_velocity - kinematic_velocity
-	var target_velocity = kinematic_velocity + (acceleration * MAX_FORCE)
-	return(target_velocity)
-
+	if is_instance_valid(character) and character is Character:
+		
+		var target = character.global_position
+		var desired_velocity = (target - global_position).normalized() * MAX_SPEED
+		if state.FLEE == current_state:
+			desired_velocity = -desired_velocity
+		var acceleration = desired_velocity - kinematic_velocity
+		var target_velocity = kinematic_velocity + (acceleration * MAX_FORCE)
+		return(target_velocity)
+	
+	current_state = state.PATROL
+	return Vector2()
 
 # ====================
 # 		SIGNALS
@@ -133,7 +136,9 @@ func on_player_detected(body):
 func on_player_exit(body):
 	if body is Character:
 		if body == character:
-			yield(get_tree().create_timer(1), "timeout")	
+			body = null
+			$Timer.start(1)
+			yield($Timer, "timeout")	
 			if current_state != state.PATROL:
 				set_physics_process(false)
 				if weak_tween.get_ref():
@@ -142,7 +147,8 @@ func on_player_exit(body):
 					handle_state()
 	
 func _on_movement_tween_completed(object, key):
-	yield(get_tree().create_timer(rand_range(1,3)), "timeout")
+	$Timer.start(rand_range(1,3))
+	yield($Timer, "timeout")
 	if current_state == state.PATROL and alive:
 		patrol()
 	

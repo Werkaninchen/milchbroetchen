@@ -95,6 +95,8 @@ var attack
 
 var level_up_options = {}
 
+var exit = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sounds = sounds_pref.instance()

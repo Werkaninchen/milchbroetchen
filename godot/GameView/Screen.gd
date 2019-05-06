@@ -57,11 +57,32 @@ func _ready():
 	e_container.setup(100, Game.world_rect)
 		
 func _input(event):
-	if Game.end and event is InputEventJoypadButton:
-		if !event.pressed:
-			if event.button_index == JOY_START:
+	if event is InputEventJoypadButton:
+		if event.pressed and !event.is_echo():
+			if event.button_index == JOY_START and Game.end:
 				Game.reset()
 				SceneChanger.call_deferred("change_to_scene", start_scene.instance())
+		
+		if !event.pressed:
+			
+			if event.button_index == JOY_SELECT:
+				if Game.players.has(event.device) and Game.players[event.device].exit == true:
+					Game.players[event.device].exit = false
+				
+		if event.pressed:
+						
+			if event.button_index == JOY_SELECT:
+				if Game.players.has(event.device):
+					Game.players[event.device].exit = true
+					
+					var players_exit = 0
+					
+					for player in Game.players:
+						if Game.players[player].exit:
+							players_exit += 1
+					
+					if players_exit == Game.players.size():
+						get_tree().quit()
 		
 func setup_players(players):
 	

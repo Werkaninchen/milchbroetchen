@@ -38,6 +38,7 @@ func reset():
 	end = false
 	game_start_time = 1 * 60
 	game_current_time = game_start_time
+	player_colors = [ColorN("red"), ColorN("yellow"), ColorN("green"), ColorN("blue")]
 
 func _process(delta):
 	if game_current_time <= 0:
@@ -71,7 +72,7 @@ func _on_player_died(id):
 	if players.size() <= 1:
 		for player in players:
 			players[player].emit_signal("won", player)
-			end = true
+		end = true
 		set_process(false)
 
 	

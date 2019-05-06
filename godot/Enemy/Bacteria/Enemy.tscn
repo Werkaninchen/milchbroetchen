@@ -78,17 +78,21 @@ texture = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="Properties"]
 frames = SubResource( 10 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="PlayerDetector" type="Area2D" parent="Properties"]
 visible = false
+monitorable = false
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Properties/PlayerDetector"]
 shape = SubResource( 8 )
 
 [node name="EnemyDetector" type="Area2D" parent="Properties"]
 visible = false
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Properties/EnemyDetector"]
 shape = SubResource( 8 )
@@ -98,6 +102,9 @@ shape = SubResource( 8 )
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource( 9 )
 one_way_collision_margin = 0.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
 [connection signal="body_entered" from="Properties/PlayerDetector" to="." method="on_player_detected"]
 [connection signal="body_exited" from="Properties/PlayerDetector" to="." method="on_player_exit"]
 [connection signal="tween_completed" from="Properties/Tween" to="." method="_on_movement_tween_completed"]
