@@ -20,7 +20,7 @@ func on_body_entered(body):
 	queue_free()
 	
 func on_timeout():
-	if linkBody != null:
+	if is_instance_valid(linkBody):
 		decr_speed()
 		linkBody.sounds.stop()
 	queue_free()

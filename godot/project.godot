@@ -22,8 +22,8 @@ config/icon="res://icon.png"
 [autoload]
 
 enums="*res://global/enums.gd"
-SceneChanger="*res://SceneChanger.gd"
-Game="*res://Game.gd"
+SceneChanger="*res://global/SceneChanger.gd"
+Game="*res://global/Game.gd"
 Sounds="*res://Sounds/Sounds.gd"
 
 [debug]

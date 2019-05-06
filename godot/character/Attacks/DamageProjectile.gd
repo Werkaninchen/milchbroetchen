@@ -33,7 +33,7 @@ func setup(target, attackpower, color, origin, spawn_point):
 	self.target = target
 	base_damage += attackpower
 	self.color = color
-	originbody = origin	
+	originbody = origin
 	self.spawn_point = spawn_point
 	
 	

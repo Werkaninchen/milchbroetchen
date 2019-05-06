@@ -19,7 +19,7 @@ func on_body_entered(body):
 	queue_free()
 	
 func on_timeout():
-	if linkBody != null:
+	if is_instance_valid(linkBody):
 		linkBody.is_stinky = false
 		linkBody.remove_child(gas)
 		linkBody.sounds.stop()

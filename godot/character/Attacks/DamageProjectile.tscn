@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://character/Attacks/DamageProjectile.gd" type="Script" id=1]
-[ext_resource path="res://consumables/types/SP/SpeedPlancton.png" type="Texture" id=2]
+[ext_resource path="res://character/Attacks/skyscraperOnBroom.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -14,6 +14,7 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -3, 3 )
 rotation = 1.5708
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )

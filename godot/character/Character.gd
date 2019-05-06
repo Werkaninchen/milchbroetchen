@@ -77,13 +77,15 @@ var movement_vector = Vector2(0, 0)
 
 var wanted_direction = Vector2(0, 0)
 
-enum state {IDLE, MOVEING, EATING, GETHIT, ATTACKING, DYING}
+enum state {IDLE, MOVEING, GETHIT, DYING}
 
 var current_state = state.IDLE
 
 var is_stinky = false
 
 var id
+
+var color 
 
 var camera
 
@@ -121,12 +123,8 @@ func _physics_process(delta):
 			idle(delta)
 		state.MOVEING:
 			moveing(delta)
-		state.EATING:
-			eating(delta)
 		state.GETHIT:
 			gethit(delta)
-		state.ATTACKING:
-			attacking(delta)
 		state.DYING:
 			dying(delta)
 
@@ -139,21 +137,12 @@ func start_moveing():
 	current_state = state.MOVEING
 	emit_signal("state_changed", "MOVEING")
 	
-func start_eating():
-	current_state = state.EATING
-	emit_signal("state_changed", "EATING")
-	
 func start_gethit():
 	current_state = state.GETHIT
-	var randau = int(rand_range(0, sounds.dmg.size()))
-	print(randau)
+	var randau = randi() % sounds.dmg.size()
 	sounds.stream = sounds.dmg[randau]
 	sounds.play()
 	emit_signal("state_changed", "GETHIT")
-	
-func start_attacking():
-	current_state = state.ATTACKING
-	emit_signal("state_changed", "ATTACKING")
 	
 func start_dying():
 	current_state = state.DYING
@@ -194,7 +183,7 @@ func moveing(delta):
 	
 	movement_vector += steering / mass
 	
-	#global_rotation = movement_vector.angle()
+	global_rotation = stepify(movement_vector.angle(), 0.1) 
 
 
 	var collider = move_and_collide(movement_vector * delta)
@@ -205,16 +194,8 @@ func moveing(delta):
 		
 	
 
-func eating(delta):
-	pass
-	
-
 func gethit(delta):
 	start_idle()
-	
-
-func attacking(delta):
-	pass
 	
 func dying(delta):
 	
@@ -233,7 +214,6 @@ func dying(delta):
 func hit(damage):
 	self.current_health = clamp(current_health - clamp(damage - defense, 0, damage), 0, max_health)
 	start_gethit() 
-	
 	
 func _set_current_health(health):
 	current_health = clamp(health, 0, max_health)
@@ -285,10 +265,6 @@ func register_controler(controler):
 func register_attack(attack):
 	self.attack = attack
 
-func change_attack(new_attack):
-	self.attack.queue_free()
-	register_attack(new_attack)
-
 func joy_input(event):
 	controler.joy_input(event)
 	
@@ -302,5 +278,7 @@ func set_up(spawn_rect, color, id):
 			rand_range(spawn_rect.position.y, spawn_rect.end.y))
 			
 	$Sprite.modulate = color
+	
+	self.color = color
 	
 	self.id = id

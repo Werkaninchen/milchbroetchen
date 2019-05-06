@@ -4,7 +4,6 @@
 [ext_resource path="res://consumables/types/AT/AT.gd" type="Script" id=2]
 [ext_resource path="res://consumables/types/AT/AttPlancton.png" type="Texture" id=3]
 
-
 [node name="AT" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 

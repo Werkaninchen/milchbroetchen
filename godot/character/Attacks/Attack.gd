@@ -32,7 +32,7 @@ func attack():
 				var spawn_point = body.global_position
 				spawn_point.x = rand_range(body.global_position.x - 30, body.global_position.x + 30)
 				spawn_point.y = rand_range(body.global_position.y - 30, body.global_position.y + 30)
-				new_projectile.setup(target, body.attack_power, body.modulate, body, spawn_point)
+				new_projectile.setup(target, body.attack_power, body.color, body, spawn_point)
 				Game.world.add_child(new_projectile)
 				shots -= 1
 		timer.start(cooldown)
