@@ -9,16 +9,20 @@ signal state_changed(state)
 signal hit(damage)
 
 # warning-ignore:unused_signal
-signal died
+signal died(id)
+
+signal won(id)
+
+signal lost(id)
 
 # warning-ignore:unused_signal
 signal attacked
 
 # warning-ignore:unused_signal
-signal exp_earned
+signal exp_earned(xp, needed)
 
 # warning-ignore:unused_signal
-signal level_up
+signal level_up(level, options)
 
 # warning-ignore:unused_signal
 signal power_up_added(color)
@@ -32,7 +36,7 @@ signal power_up_removed
 signal debuff_removed
 
 # warning-ignore:unused_signal
-signal health_changed
+signal health_changed(health, max_health)
 
 #maxspeed in pixel per seconds
 export (int, 1, 200) var ORIG_MAXSPEED = 200
@@ -44,11 +48,13 @@ export (int, 1, 200) var ORIG_ACCELERATION = 200
 export (int, 1, 200) var ORIG_DECCELERATION = 100
 
 #rotationspeed in degrees per second
-export (float) var ORIG_MASS = 0.3
+export (float) var ORIG_MASS = 0.1
 
 export (int, 1, 1000) var ORIG_HEALTH = 100
 
 export (int, 1, 1000) var ORIG_ATTACKPOWER = 10
+
+export (int, 1, 100) var ORIG_ADDATTACKS = 0
 
 export (int, 1, 1000) var ORIG_DEFENSE = 10
 
@@ -56,7 +62,7 @@ export (int, 1, 1000) var ORIG_DEFENSE = 10
 export (int) var EXPFIRSTLEVEL = 1000
 
 #diminisher for xp need
-export (float, 0.1, 1) var EXPSSCALE
+export (float, 0.1, 1) var EXPSSCALE = 0.5
 
 var max_speed = ORIG_MAXSPEED
 
@@ -72,11 +78,15 @@ var current_health = ORIG_HEALTH setget _set_current_health
 
 var attack_power = ORIG_ATTACKPOWER
 
+var add_attacks = ORIG_ADDATTACKS
+
 var defense = ORIG_DEFENSE
 
 var needed_exp = EXPFIRSTLEVEL
 
-var current_exp = 0
+var current_exp = 0 setget _set_current_exp
+
+var level = 0
 
 var movement_vector = Vector2(0, 0)
 
@@ -86,12 +96,33 @@ enum state {IDLE, MOVEING, EATING, GETHIT, ATTACKING, DYING}
 
 var current_state = state.IDLE
 
+var is_stinky = false
+
+var id
+
+var camera
+
+var controler
+
+var attack
+
+var level_up_options = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_idle()
 # warning-ignore:return_value_discarded
 	connect("died", self, "_on_died")
-	connect("level_up", self, "_on_level_up")
+
+	
+	
+	camera = $Camera2D
+	
+	level_up_options.health = 20
+	level_up_options.attack_power = 2
+	level_up_options.defense_power = 2
+	level_up_options.agility = 1.1
+	level_up_options.add_attacks = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -128,6 +159,7 @@ func start_eating():
 	
 func start_gethit():
 	current_state = state.GETHIT
+	Sounds.play_dmg()
 	emit_signal("state_changed", "GETHIT")
 	
 func start_attacking():
@@ -137,6 +169,7 @@ func start_attacking():
 func start_dying():
 	current_state = state.DYING
 	emit_signal("state_changed", "DYING")
+	emit_signal("died", id)
 	
 func idle(delta):
 	if wanted_direction != Vector2(0, 0):
@@ -150,7 +183,10 @@ func idle(delta):
 			movement_vector = Vector2(0, 0)
 		
 		else:
-			move_and_collide(movement_vector * delta)
+			var collider = move_and_collide(movement_vector * delta)
+			
+			if collider:
+				movement_vector = Vector2(0, 0)
 	
 		
 	
@@ -172,7 +208,10 @@ func moveing(delta):
 	#global_rotation = movement_vector.angle()
 
 
-	move_and_collide(movement_vector * delta)
+	var collider = move_and_collide(movement_vector * delta)
+	
+	if collider:
+		movement_vector = Vector2(0, 0)
 	
 		
 	
@@ -189,6 +228,7 @@ func attacking(delta):
 	pass
 	
 func dying(delta):
+	
 	if movement_vector != Vector2(0,0):
 		movement_vector -= movement_vector.normalized() * decc * delta
 	
@@ -196,33 +236,82 @@ func dying(delta):
 			movement_vector = Vector2(0, 0)
 		
 		else:
-			move_and_collide(movement_vector * delta)
+			var collider = move_and_collide(movement_vector * delta)
+			
+			if collider:
+				movement_vector = Vector2(0, 0)
 	
 func hit(damage):
-	current_health = clamp(current_health - clamp(damage - defense, 0, damage), 0, max_health)
-	if current_health == 0:
-		start_dying()
-		return
+	self.current_health = clamp(current_health - clamp(damage - defense, 0, damage), 0, max_health)
 	start_gethit() 
 	
 	
 func _set_current_health(health):
 	current_health = clamp(health, 0, max_health)
 	if current_health == 0:
-		start_dying()
-	emit_signal("health_changed", health)
+		if current_state != state.DYING:
+			start_dying()
+	emit_signal("health_changed", health, max_health)
 	
 func _set_current_exp(ep):
 	current_exp = ep
 	if current_exp >= needed_exp:
 		current_exp -= needed_exp
 		needed_exp = needed_exp / EXPSSCALE
-		emit_signal("level_up")
+		level += 1
+		
+		var option_keys = level_up_options.keys()
+		var key_1 = option_keys[randi() % option_keys.size()]
+		var key_2 = option_keys[randi() % option_keys.size()]
+		var options = [key_1, key_2]
+		
+		
+		emit_signal("level_up", level, options)
 		
 	emit_signal("exp_earned", current_exp, needed_exp)
 
-func _on_died():
+func _on_died(id):
 	queue_free()
 
-func _on_level_up():
-	pass
+func _on_level_up_chosen(option):
+	match option:
+		"health":
+			self.max_health += level_up_options[option]
+		"attack_power":
+			attack_power += level_up_options[option]
+		"defense_power":
+			defense += level_up_options[option]
+		"agility":
+			max_speed *= level_up_options[option]
+			acc *= level_up_options[option]
+			decc *= level_up_options[option]
+			mass /= level_up_options[option]
+		"add_attacks":
+			add_attacks += level_up_options[option]
+	current_health = max_health
+
+func register_controler(controler):
+	self.controler = controler
+	
+func register_attack(attack):
+	self.attack = attack
+
+func change_attack(new_attack):
+	self.attack.queue_free()
+	register_attack(new_attack)
+
+func joy_input(event):
+	controler.joy_input(event)
+	
+func _input(event):
+	if controler:
+		controler.joy_input(event)
+		
+func set_up(spawn_rect, color, id):
+	
+	global_position = Vector2(rand_range(spawn_rect.position.x, spawn_rect.end.x),
+			rand_range(spawn_rect.position.y, spawn_rect.end.y))
+			
+	$Sprite.modulate = color
+	
+	self.id = id

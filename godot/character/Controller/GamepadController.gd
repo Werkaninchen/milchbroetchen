@@ -1,16 +1,15 @@
 extends Node
 
-var controller_device_id
 var body
 
 func _ready():
 	body = get_parent()
-	#body.register_control(self)
+	body.register_controler(self)
 
 #func set_controller_device_id(id):
 #	controller_device_id = id
 	
-func _input(event):
+func joy_input(event):
 	# set movement_direction
 	if event is InputEventJoypadMotion:
 		
@@ -33,7 +32,11 @@ func _input(event):
 				
 			else:
 				body.wanted_direction.y = 0
-				
+	
+	if event is InputEventJoypadButton:
+		if event.button_index == JOY_R2:
+			body.attack.attack()
+	
 	#	# set looking direction
 	#	if event.axis == JOY_AXIS_2:
 	#		if abs(event.axis_value) > 0.1:
