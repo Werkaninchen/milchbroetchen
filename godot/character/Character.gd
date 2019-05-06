@@ -164,6 +164,7 @@ func start_eating():
 func start_gethit():
 	current_state = state.GETHIT
 	var randau = int(rand_range(0, sounds.dmg.size()))
+	print(randau)
 	sounds.stream = sounds.dmg[randau]
 	sounds.play()
 	emit_signal("state_changed", "GETHIT")

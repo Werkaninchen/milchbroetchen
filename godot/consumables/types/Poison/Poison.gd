@@ -13,6 +13,7 @@ func on_body_entered(body):
 	if body is character:
 		timer.start(frequence)
 		var randau = int(rand_range(0, linkBody.sounds.poison.size()))
+		print(randau)
 		linkBody.sounds.stream = linkBody.sounds.poison[randau]
 		linkBody.sounds.play()
 		return

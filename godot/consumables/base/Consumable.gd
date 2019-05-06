@@ -4,7 +4,7 @@ var character = load("res://character/Character.gd")
 var consumableType
 var linkBody = null
 var timer 
-export var duration = 4
+export var duration = 10
 
 func _ready():
 	init()
