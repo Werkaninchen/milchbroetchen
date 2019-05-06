@@ -26,6 +26,10 @@ SceneChanger="*res://SceneChanger.gd"
 Game="*res://Game.gd"
 Sounds="*res://Sounds/Sounds.gd"
 
+[debug]
+
+gdscript/warnings/enable=false
+
 [display]
 
 window/size/width=1920

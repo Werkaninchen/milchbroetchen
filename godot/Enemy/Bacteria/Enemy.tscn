@@ -32,7 +32,7 @@ spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 120.22
 initial_velocity_random = 0.63
-angular_velocity = 1.78412e+25
+angular_velocity = 1.78412e+025
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = -17.49
@@ -86,7 +86,6 @@ shape = SubResource( 8 )
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource( 9 )
 one_way_collision_margin = 0.0
-
 [connection signal="body_entered" from="Properties/PlayerDetector" to="." method="on_player_detected"]
 [connection signal="body_exited" from="Properties/PlayerDetector" to="." method="on_player_exit"]
 [connection signal="tween_completed" from="Properties/Tween" to="." method="_on_movement_tween_completed"]

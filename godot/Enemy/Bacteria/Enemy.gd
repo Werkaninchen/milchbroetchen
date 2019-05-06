@@ -34,7 +34,7 @@ func _physics_process(delta):
 	if collision:
 		if collision.collider is Character:
 			var collided_player : Character = collision.collider
-			collided_player.hit(20)
+			collided_player.hit(50)
 			kill_self(collision.position)
 #player_target = get_viewport().get_mouse_position()
 	
@@ -102,11 +102,10 @@ func tween_movement(vel: Vector2):
 	move_and_collide(vel)
 	
 func steer():
-	if not character:
+	if not is_instance_valid(character):
 		current_state = state.PATROL
 		return Vector2()
-		
-	
+
 	var target = character.global_position
 	var desired_velocity = (target - global_position).normalized() * MAX_SPEED
 	if state.FLEE == current_state:

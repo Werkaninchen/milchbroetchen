@@ -3,42 +3,24 @@ extends KinematicBody2D
 var sounds_pref = load("res://Sounds/Sounds.tscn")
 var sounds
 
-# warning-ignore:unused_signal
-signal eaten
 
 signal state_changed(state)
 
-# warning-ignore:unused_signal
 signal hit(damage)
 
-# warning-ignore:unused_signal
 signal died(id)
 
 signal won(id)
 
 signal lost(id)
 
-# warning-ignore:unused_signal
 signal attacked
 
-# warning-ignore:unused_signal
 signal exp_earned(xp, needed)
 
-# warning-ignore:unused_signal
 signal level_up(level, options)
 
-# warning-ignore:unused_signal
-signal power_up_added(color)
 
-signal debuff_added(color)
-
-# warning-ignore:unused_signal
-signal power_up_removed
-
-# warning-ignore:unused_signal
-signal debuff_removed
-
-# warning-ignore:unused_signal
 signal health_changed(health, max_health)
 
 #maxspeed in pixel per seconds
@@ -117,7 +99,7 @@ func _ready():
 	add_child(sounds)
 	
 	start_idle()
-# warning-ignore:return_value_discarded
+
 	connect("died", self, "_on_died")
 	
 	camera = $Camera2D
@@ -278,7 +260,7 @@ func _set_current_exp(ep):
 	emit_signal("exp_earned", current_exp, needed_exp)
 
 func _on_died(id):
-	queue_free()
+	call_deferred("free")
 
 func _on_level_up_chosen(option):
 	match option:
