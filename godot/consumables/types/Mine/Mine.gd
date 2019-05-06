@@ -4,9 +4,7 @@ export var damage = 50
 
 func init():
 	consumableType = enums.ConsumType.Mine
-	
-func _ready():
-	.create_timer()
+	.create_timer()	
 
 func on_body_entered(body):
 	.on_body_entered(body)
@@ -28,8 +26,6 @@ func damage_players():
 
 		if current_damage != 0:
 			player.current_health -= current_damage
-			sounds.stream = sounds.mine
-			sounds.play()
-
-func on_finished():
+		linkBody.sounds.stream = linkBody.sounds.mine
+		linkBody.sounds.play()
 	queue_free()

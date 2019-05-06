@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+var sounds_pref = load("res://Sounds/Sounds.tscn")
+var sounds
+
 # warning-ignore:unused_signal
 signal eaten
 
@@ -110,11 +113,12 @@ var level_up_options = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	sounds = sounds_pref.instance()
+	add_child(sounds)
+	
 	start_idle()
 # warning-ignore:return_value_discarded
 	connect("died", self, "_on_died")
-
-	
 	
 	camera = $Camera2D
 	
@@ -159,7 +163,10 @@ func start_eating():
 	
 func start_gethit():
 	current_state = state.GETHIT
-	Sounds.play_dmg()
+	var randau = int(rand_range(0, sounds.dmg.size()))
+	print(randau)
+	sounds.stream = sounds.dmg[randau]
+	sounds.play()
 	emit_signal("state_changed", "GETHIT")
 	
 func start_attacking():
