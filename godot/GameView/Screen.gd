@@ -82,7 +82,8 @@ func _input(event):
 							players_exit += 1
 					
 					if players_exit == Game.players.size():
-						get_tree().quit()
+						Game.reset()
+						SceneChanger.call_deferred("change_to_scene", start_scene.instance())
 		
 func setup_players(players):
 	
