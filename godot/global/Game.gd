@@ -16,7 +16,7 @@ var end = false
 
 var players = {}
 
-var player_colors = [ColorN("red"), ColorN("yellow"), ColorN("green"), ColorN("blue")]
+var player_colors = [ColorN("red", 0.75), ColorN("yellow", 0.75), ColorN("green", 0.75), ColorN("blue", 0.75)]
 
 var world_rect = Rect2(0, 0, 5000, 5000)
 
@@ -38,7 +38,7 @@ func reset():
 	end = false
 	game_start_time = 1 * 60
 	game_current_time = game_start_time
-	player_colors = [ColorN("red"), ColorN("yellow"), ColorN("green"), ColorN("blue")]
+	player_colors = [ColorN("red", 0.75), ColorN("yellow", 0.75), ColorN("green", 0.5), ColorN("blue", 0.75)]
 
 func _process(delta):
 	if game_current_time <= 0:

@@ -21,7 +21,7 @@ anchor_bottom = 1.0
 
 [node name="GameName" type="Label" parent="VBC"]
 margin_right = 1920.0
-margin_bottom = 610.0
+margin_bottom = 593.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 custom_fonts/font = SubResource( 2 )
@@ -30,36 +30,41 @@ align = 1
 valign = 1
 
 [node name="Info" type="Label" parent="VBC"]
-margin_top = 614.0
+margin_top = 597.0
 margin_right = 1920.0
-margin_bottom = 664.0
+margin_bottom = 676.0
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.25
+size_flags_stretch_ratio = 0.4
 custom_fonts/font = ExtResource( 2 )
 text = "Last Bacteria standing."
 align = 1
-valign = 1
 
 [node name="HBC" type="HBoxContainer" parent="VBC"]
-margin_top = 668.0
+margin_top = 680.0
 margin_right = 1920.0
-margin_bottom = 871.0
+margin_bottom = 877.0
 size_flags_vertical = 3
 
 [node name="Player1" type="Label" parent="VBC/HBC"]
 margin_right = 958.0
-margin_bottom = 203.0
+margin_bottom = 197.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 text = "Please Press Start"
 align = 1
 valign = 1
+
+[node name="Color" type="ColorRect" parent="VBC/HBC/Player1"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.498039 )
 
 [node name="Player2" type="Label" parent="VBC/HBC"]
 margin_left = 962.0
 margin_right = 1920.0
-margin_bottom = 203.0
+margin_bottom = 197.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
@@ -67,15 +72,21 @@ text = "Please Press Start"
 align = 1
 valign = 1
 
+[node name="Color" type="ColorRect" parent="VBC/HBC/Player2"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.498039 )
+
 [node name="HBC2" type="HBoxContainer" parent="VBC"]
-margin_top = 875.0
+margin_top = 881.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 size_flags_vertical = 3
 
 [node name="Player3" type="Label" parent="VBC/HBC2"]
 margin_right = 958.0
-margin_bottom = 205.0
+margin_bottom = 199.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
@@ -83,16 +94,28 @@ text = "Please Press Start"
 align = 1
 valign = 1
 
+[node name="Color" type="ColorRect" parent="VBC/HBC2/Player3"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.498039 )
+
 [node name="Player4" type="Label" parent="VBC/HBC2"]
 margin_left = 962.0
 margin_right = 1920.0
-margin_bottom = 205.0
+margin_bottom = 199.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 text = "Please Press Start"
 align = 1
 valign = 1
+
+[node name="Color" type="ColorRect" parent="VBC/HBC2/Player4"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.498039 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

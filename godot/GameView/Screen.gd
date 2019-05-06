@@ -90,8 +90,8 @@ func setup_players(players):
 		var new_player = character_scene.instance()
 		Game.players[player] = new_player
 		new_player.connect("died", Game, "_on_player_died")
-		Game.player_colors.shuffle()
-		new_player.set_up(Game.world_rect, Game.player_colors.pop_back(), player)
+		
+		new_player.set_up(Game.world_rect, players[player].color, player)
 		$World.add_child(new_player)
 	
 func _on_game_timer_updated(time):
