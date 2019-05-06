@@ -22,7 +22,8 @@ var sounds
 func _ready():
 	sounds = sounds_pref.instance()
 	add_child(sounds)
-	sounds.play_game()
+	sounds.stream = sounds.game
+	sounds.play()
 	
 	game_info = $VBC/GameInfoPanel/GameInfoText
 	
