@@ -42,6 +42,8 @@ func _process(delta):
 
 
 func _input(event):
+	if event is InputEventKey and event.scancode == KEY_ESCAPE:
+		get_tree().quit()
 	if event is InputEventJoypadButton:
 		if event.pressed and !event.is_echo():
 			if event.button_index == JOY_START:

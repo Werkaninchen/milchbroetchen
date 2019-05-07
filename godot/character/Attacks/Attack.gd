@@ -30,9 +30,15 @@ func _ready():
 	
 
 func attack():
-	if timer.is_stopped() and get_overlapping_bodies().size() >= 1:
+	if timer.is_stopped():
+		if get_overlapping_bodies().size() <= 1:
+			if get_overlapping_bodies().size() == 0:
+				return
+			for target in get_overlapping_bodies():
+				if target == body:
+					return
 		var shots = max_shots
-		while(shots > 0 and get_overlapping_bodies().size() >= 1):
+		while(shots > 0 and get_overlapping_bodies().size() > 0):
 			for target in get_overlapping_bodies():
 				if target == body:
 					continue

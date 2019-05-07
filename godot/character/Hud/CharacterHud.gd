@@ -44,8 +44,9 @@ func _ready():
 	connect("level_up_chosen", character, "_on_level_up_chosen")
 	
 func _on_health_changed(health, max_health):
-	health_bar.value = health
 	health_bar.max_value = max_health
+	health_bar.value = health
+	
 
 func _on_exp_earned(xp, needed_xp):
 	exp_bar.max_value = needed_xp
