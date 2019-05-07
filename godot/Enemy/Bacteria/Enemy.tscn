@@ -46,7 +46,7 @@ hue_variation = 1.0
 hue_variation_random = 1.0
 hue_variation_curve = SubResource( 4 )
 
-[sub_resource type="SpriteFrames" id=10]
+[sub_resource type="SpriteFrames" id=8]
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
@@ -54,10 +54,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=9]
 radius = 188.232
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 12.8019, 30 )
 
 [node name="Enemy" type="KinematicBody2D"]
@@ -77,8 +77,8 @@ texture = ExtResource( 2 )
 [node name="Properties" type="Node2D" parent="."]
 
 [node name="Sprite" type="AnimatedSprite" parent="Properties"]
-frames = SubResource( 10 )
-frame = 2
+frames = SubResource( 8 )
+frame = 3
 playing = true
 
 [node name="PlayerDetector" type="Area2D" parent="Properties"]
@@ -87,7 +87,7 @@ monitorable = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Properties/PlayerDetector"]
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="EnemyDetector" type="Area2D" parent="Properties"]
 visible = false
@@ -95,12 +95,12 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Properties/EnemyDetector"]
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="Tween" type="Tween" parent="Properties"]
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 one_way_collision_margin = 0.0
 
 [node name="Timer" type="Timer" parent="."]

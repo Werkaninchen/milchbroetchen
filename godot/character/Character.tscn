@@ -5,7 +5,8 @@
 [ext_resource path="res://character/playerAnimation/player02.png" type="Texture" id=3]
 [ext_resource path="res://character/playerAnimation/player01.png" type="Texture" id=4]
 [ext_resource path="res://character/Controller/GamepadController.gd" type="Script" id=5]
-[ext_resource path="res://character/Attacks/Attack.gd" type="Script" id=6]
+[ext_resource path="res://character/Attacks/Attack.tscn" type="PackedScene" id=6]
+[ext_resource path="res://character/Attacks/KillNPCsProjectile.tscn" type="PackedScene" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -23,9 +24,6 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=2]
 radius = 37.5496
 
-[sub_resource type="CircleShape2D" id=3]
-radius = 150.0
-
 [node name="Character" type="KinematicBody2D"]
 collision_mask = 3
 script = ExtResource( 1 )
@@ -36,7 +34,6 @@ rotation = 1.5708
 scale = Vector2( 0.7, 0.7 )
 frames = SubResource( 1 )
 animation = "moving"
-frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -48,12 +45,12 @@ script = ExtResource( 5 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
-[node name="Attack" type="Area2D" parent="."]
-collision_layer = 0
-script = ExtResource( 6 )
+[node name="PrimeAttack" parent="." instance=ExtResource( 6 )]
+attack_range = 150
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
-shape = SubResource( 3 )
-
-[node name="Timer" type="Timer" parent="Attack"]
-one_shot = true
+[node name="SecondaryAttack" parent="." instance=ExtResource( 6 )]
+collision_mask = 2
+time_between_shots = 1.0
+max_shots = 4
+projectile = ExtResource( 7 )
+type = 1

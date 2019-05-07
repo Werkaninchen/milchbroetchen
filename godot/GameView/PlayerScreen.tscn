@@ -55,8 +55,7 @@ expand = true
 stretch_mode = 7
 
 [node name="PlayerViewport" type="Viewport" parent="MC/GameView"]
-size = Vector2( 1280, 720 )
-transparent_bg = true
+size = Vector2( 1920, 1080 )
 hdr = false
 disable_3d = true
 usage = 0

@@ -47,7 +47,7 @@ export (int, 1, 1000) var ORIG_DEFENSE = 10
 export (int) var EXPFIRSTLEVEL = 1000
 
 #diminisher for xp need
-export (float, 0.1, 1) var EXPSSCALE = 0.5
+export (float, 0.1, 1) var EXPSSCALE = 0.75
 
 var max_speed = ORIG_MAXSPEED
 
@@ -91,7 +91,8 @@ var camera
 
 var controler
 
-var attack
+var attack_primary
+var attack_secondary
 
 var level_up_options = {}
 
@@ -222,7 +223,7 @@ func _set_current_health(health):
 	if current_health == 0:
 		if current_state != state.DYING:
 			start_dying()
-	emit_signal("health_changed", health, max_health)
+	emit_signal("health_changed", current_health, max_health)
 	
 func _set_current_exp(ep):
 	current_exp = ep
@@ -236,7 +237,7 @@ func _set_current_exp(ep):
 		var key_2 = option_keys[randi() % option_keys.size()]
 		var options = [key_1, key_2]
 		
-		
+		wanted_direction = Vector2(0, 0)
 		emit_signal("level_up", level, options)
 		
 	emit_signal("exp_earned", current_exp, needed_exp)
@@ -247,7 +248,7 @@ func _on_died(id):
 func _on_level_up_chosen(option):
 	match option:
 		"health":
-			self.max_health += level_up_options[option]
+			max_health += level_up_options[option]
 		"attack_power":
 			attack_power += level_up_options[option]
 		"defense_power":
@@ -259,13 +260,16 @@ func _on_level_up_chosen(option):
 			mass /= level_up_options[option]
 		"add_attacks":
 			add_attacks += level_up_options[option]
-	current_health = max_health
+	self.current_health = max_health
 
 func register_controler(controler):
 	self.controler = controler
 	
-func register_attack(attack):
-	self.attack = attack
+func register_attack_primary(attack):
+	attack_primary = attack
+	
+func register_attack_secondary(attack):
+	attack_secondary = attack
 
 func joy_input(event):
 	controler.joy_input(event)

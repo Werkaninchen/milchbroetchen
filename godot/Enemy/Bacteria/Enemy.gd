@@ -37,7 +37,7 @@ func _physics_process(delta):
 		if collision.collider is Character:
 			var collided_player : Character = collision.collider
 			collided_player.hit(25)
-			kill_self(collision.position)
+			kill_self()
 #player_target = get_viewport().get_mouse_position()
 	
 #func _draw():
@@ -73,8 +73,10 @@ func _set_start_pos(pos: Vector2):
 	global_position = pos
 	spawn_point = pos
 	
-func kill_self(pos: Vector2):
+func kill_self():
 
+	set_physics_process(false)
+	set_process(false)
 	alive = false
 	$Properties.queue_free()
 	$Hitbox.queue_free()

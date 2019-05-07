@@ -3,38 +3,38 @@
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
-uniform vec2 time_factor = vec2(0.5, 0.5);
-uniform vec2 amplitude = vec2(0.05, 0.05);
+
+
+uniform vec2 time_factor = vec2(0.1, 0.1);
+uniform vec2 offset_factor = vec2(10.0, 20.0);
+uniform vec2 amplitude = vec2(0.1, 0.1);
 
 void fragment() {
-	vec2 tiled_uvs = UV;
-	//tiled_uvs.y *= aspect_ratio;
 	
 	vec2 wave_uv_offset;
-	wave_uv_offset.x += sin(TIME * time_factor.x);
-	wave_uv_offset.y += cos(TIME * time_factor.y);
+	wave_uv_offset.x += sin(TIME * time_factor.x + (SCREEN_UV.y + SCREEN_UV.x) * offset_factor.x);
+	wave_uv_offset.y += sin(TIME * time_factor.y + (SCREEN_UV.y + SCREEN_UV.x) * offset_factor.y);
 	
-
-	COLOR = texture(TEXTURE, tiled_uvs + wave_uv_offset * amplitude);
-
+	COLOR = texture(TEXTURE, UV + wave_uv_offset * amplitude);
 }"
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
-shader_param/time_factor = Vector2( 0.5, 0.5 )
-shader_param/amplitude = Vector2( 0.05, 0.05 )
+shader_param/time_factor = Vector2( 0.1, 0.2 )
+shader_param/offset_factor = Vector2( 0.5, 2 )
+shader_param/amplitude = Vector2( 0.15, 0.15 )
 
 [sub_resource type="OpenSimplexNoise" id=3]
 seed = 3
 octaves = 6
-period = 122.0
-persistence = 1.0
-lacunarity = 1.06
+period = 33.9
+persistence = 0.548
+lacunarity = 1.5
 
 [sub_resource type="NoiseTexture" id=4]
 flags = 3
-width = 1920
-height = 1080
+width = 480
+height = 270
 seamless = true
 noise = SubResource( 3 )
 
@@ -45,10 +45,8 @@ motion_scale = Vector2( 0.75, 0.75 )
 motion_mirroring = Vector2( 1920, 1080 )
 
 [node name="ColorRect" type="TextureRect" parent="ParallaxLayer"]
-modulate = Color( 0.148285, 0.441406, 0.392553, 0.498039 )
+modulate = Color( 0.203922, 0.364706, 0.435294, 1 )
 material = SubResource( 2 )
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 texture = SubResource( 4 )
