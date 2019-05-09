@@ -1,41 +1,26 @@
 extends KinematicBody2D
 
-# warning-ignore:unused_signal
-signal eaten
+var sounds_pref = load("res://Sounds/Sounds.tscn")
+var sounds
+
 
 signal state_changed(state)
 
-# warning-ignore:unused_signal
 signal hit(damage)
 
-# warning-ignore:unused_signal
 signal died(id)
 
 signal won(id)
 
 signal lost(id)
 
-# warning-ignore:unused_signal
 signal attacked
 
-# warning-ignore:unused_signal
 signal exp_earned(xp, needed)
 
-# warning-ignore:unused_signal
 signal level_up(level, options)
 
-# warning-ignore:unused_signal
-signal power_up_added(color)
 
-signal debuff_added(color)
-
-# warning-ignore:unused_signal
-signal power_up_removed
-
-# warning-ignore:unused_signal
-signal debuff_removed
-
-# warning-ignore:unused_signal
 signal health_changed(health, max_health)
 
 #maxspeed in pixel per seconds
@@ -62,7 +47,7 @@ export (int, 1, 1000) var ORIG_DEFENSE = 10
 export (int) var EXPFIRSTLEVEL = 1000
 
 #diminisher for xp need
-export (float, 0.1, 1) var EXPSSCALE = 0.5
+export (float, 0.1, 1) var EXPSSCALE = 0.75
 
 var max_speed = ORIG_MAXSPEED
 
@@ -92,7 +77,7 @@ var movement_vector = Vector2(0, 0)
 
 var wanted_direction = Vector2(0, 0)
 
-enum state {IDLE, MOVEING, EATING, GETHIT, ATTACKING, DYING}
+enum state {IDLE, MOVEING, GETHIT, DYING}
 
 var current_state = state.IDLE
 
@@ -100,21 +85,27 @@ var is_stinky = false
 
 var id
 
+var color 
+
 var camera
 
 var controler
 
-var attack
+var attack_primary
+var attack_secondary
 
 var level_up_options = {}
 
+var exit = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	start_idle()
-# warning-ignore:return_value_discarded
-	connect("died", self, "_on_died")
-
+	sounds = sounds_pref.instance()
+	add_child(sounds)
 	
+	start_idle()
+
+	connect("died", self, "_on_died")
 	
 	camera = $Camera2D
 	
@@ -135,12 +126,8 @@ func _physics_process(delta):
 			idle(delta)
 		state.MOVEING:
 			moveing(delta)
-		state.EATING:
-			eating(delta)
 		state.GETHIT:
 			gethit(delta)
-		state.ATTACKING:
-			attacking(delta)
 		state.DYING:
 			dying(delta)
 
@@ -153,18 +140,12 @@ func start_moveing():
 	current_state = state.MOVEING
 	emit_signal("state_changed", "MOVEING")
 	
-func start_eating():
-	current_state = state.EATING
-	emit_signal("state_changed", "EATING")
-	
 func start_gethit():
 	current_state = state.GETHIT
-	Sounds.play_dmg()
+	var randau = randi() % sounds.dmg.size()
+	sounds.stream = sounds.dmg[randau]
+	sounds.play()
 	emit_signal("state_changed", "GETHIT")
-	
-func start_attacking():
-	current_state = state.ATTACKING
-	emit_signal("state_changed", "ATTACKING")
 	
 func start_dying():
 	current_state = state.DYING
@@ -205,7 +186,7 @@ func moveing(delta):
 	
 	movement_vector += steering / mass
 	
-	#global_rotation = movement_vector.angle()
+	global_rotation = stepify(movement_vector.angle(), 0.1) 
 
 
 	var collider = move_and_collide(movement_vector * delta)
@@ -216,16 +197,8 @@ func moveing(delta):
 		
 	
 
-func eating(delta):
-	pass
-	
-
 func gethit(delta):
 	start_idle()
-	
-
-func attacking(delta):
-	pass
 	
 func dying(delta):
 	
@@ -245,13 +218,12 @@ func hit(damage):
 	self.current_health = clamp(current_health - clamp(damage - defense, 0, damage), 0, max_health)
 	start_gethit() 
 	
-	
 func _set_current_health(health):
 	current_health = clamp(health, 0, max_health)
 	if current_health == 0:
 		if current_state != state.DYING:
 			start_dying()
-	emit_signal("health_changed", health, max_health)
+	emit_signal("health_changed", current_health, max_health)
 	
 func _set_current_exp(ep):
 	current_exp = ep
@@ -265,18 +237,18 @@ func _set_current_exp(ep):
 		var key_2 = option_keys[randi() % option_keys.size()]
 		var options = [key_1, key_2]
 		
-		
+		wanted_direction = Vector2(0, 0)
 		emit_signal("level_up", level, options)
 		
 	emit_signal("exp_earned", current_exp, needed_exp)
 
 func _on_died(id):
-	queue_free()
+	call_deferred("free")
 
 func _on_level_up_chosen(option):
 	match option:
 		"health":
-			self.max_health += level_up_options[option]
+			max_health += level_up_options[option]
 		"attack_power":
 			attack_power += level_up_options[option]
 		"defense_power":
@@ -288,17 +260,16 @@ func _on_level_up_chosen(option):
 			mass /= level_up_options[option]
 		"add_attacks":
 			add_attacks += level_up_options[option]
-	current_health = max_health
+	self.current_health = max_health
 
 func register_controler(controler):
 	self.controler = controler
 	
-func register_attack(attack):
-	self.attack = attack
-
-func change_attack(new_attack):
-	self.attack.queue_free()
-	register_attack(new_attack)
+func register_attack_primary(attack):
+	attack_primary = attack
+	
+func register_attack_secondary(attack):
+	attack_secondary = attack
 
 func joy_input(event):
 	controler.joy_input(event)
@@ -313,5 +284,7 @@ func set_up(spawn_rect, color, id):
 			rand_range(spawn_rect.position.y, spawn_rect.end.y))
 			
 	$Sprite.modulate = color
+	
+	self.color = color
 	
 	self.id = id

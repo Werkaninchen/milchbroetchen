@@ -6,24 +6,26 @@ export var times = 10
 
 func init():
 	consumableType = enums.ConsumType.Poison
-	
-func _ready():
-	.create_timer()
+	.create_timer()	
 
 func on_body_entered(body):
 	.on_body_entered(body)
 	if body is character:
 		timer.start(frequence)
-		sounds.stream = sounds.poison[int(rand_range(0, sounds.poison.size()))]
-		sounds.play()
+		var randau = randi() % linkBody.sounds.poison.size()
+		linkBody.sounds.stream = linkBody.sounds.poison[randau]
+		linkBody.sounds.play()
 		return
 	queue_free()
 	
 func on_timeout():
-	if linkBody != null:
+	if is_instance_valid(linkBody):
 		if times > 0:		
-			linkBody.current_health - damage
+			linkBody.current_health -= damage
 			times -= 1
 			timer.start(frequence)
+			var randau = int(rand_range(0, linkBody.sounds.poison.size()))
+			linkBody.sounds.stream = linkBody.sounds.poison[randau]
+			linkBody.sounds.play()
 			return
 	queue_free()

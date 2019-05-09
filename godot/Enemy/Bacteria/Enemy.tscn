@@ -1,8 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Enemy/Bacteria/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Enemy/particle_cloud.png" type="Texture" id=2]
-[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://Enemy/enemyAnimation/enemy00.png" type="Texture" id=3]
+[ext_resource path="res://Enemy/enemyAnimation/enemy01.png" type="Texture" id=4]
+[ext_resource path="res://Enemy/enemyAnimation/enemy02.png" type="Texture" id=5]
+[ext_resource path="res://Enemy/enemyAnimation/enemy03.png" type="Texture" id=6]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 1, 1, 1, 0.345098, 1, 1, 1, 0 )
@@ -32,7 +35,7 @@ spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 120.22
 initial_velocity_random = 0.63
-angular_velocity = 1.78412e+25
+angular_velocity = 1.78412e+025
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = -17.49
@@ -43,11 +46,19 @@ hue_variation = 1.0
 hue_variation_random = 1.0
 hue_variation_curve = SubResource( 4 )
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=9]
 radius = 188.232
 
-[sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 30, 30 )
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 12.8019, 30 )
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 2
@@ -64,29 +75,36 @@ process_material = SubResource( 7 )
 texture = ExtResource( 2 )
 
 [node name="Properties" type="Node2D" parent="."]
-editor/display_folded = true
 
-[node name="Sprite" type="Sprite" parent="Properties"]
-texture = ExtResource( 3 )
+[node name="Sprite" type="AnimatedSprite" parent="Properties"]
+frames = SubResource( 8 )
+frame = 3
+playing = true
 
 [node name="PlayerDetector" type="Area2D" parent="Properties"]
 visible = false
+monitorable = false
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Properties/PlayerDetector"]
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="EnemyDetector" type="Area2D" parent="Properties"]
 visible = false
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Properties/EnemyDetector"]
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="Tween" type="Tween" parent="Properties"]
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 one_way_collision_margin = 0.0
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
 [connection signal="body_entered" from="Properties/PlayerDetector" to="." method="on_player_detected"]
 [connection signal="body_exited" from="Properties/PlayerDetector" to="." method="on_player_exit"]
 [connection signal="tween_completed" from="Properties/Tween" to="." method="_on_movement_tween_completed"]

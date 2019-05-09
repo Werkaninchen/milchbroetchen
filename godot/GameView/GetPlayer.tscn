@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://character/Attacks/skyscraperOnBroom.png" type="Texture" id=1]
+
+[node name="GetPlayer" type="Node2D"]
+
+[node name="Arrow" type="Sprite" parent="."]
+rotation = 1.5708
+scale = Vector2( 3, 3 )
+texture = ExtResource( 1 )
+offset = Vector2( 5, -15 )

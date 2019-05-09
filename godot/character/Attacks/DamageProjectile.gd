@@ -13,6 +13,9 @@ var color
 var move_vector
 
 func _ready():
+	if !is_instance_valid(target):
+		call_deferred("free")
+		return
 	timer = $Timer
 	timer.connect("timeout", self, "_on_timeout")
 	timer.start(lifetime)
@@ -21,7 +24,7 @@ func _ready():
 	
 	global_position = spawn_point
 	
-	$Sprite.rotate(get_angle_to(target.global_position))
+	rotate(get_angle_to(target.global_position))
 	
 	$Sprite.modulate = color
 	
@@ -33,7 +36,7 @@ func setup(target, attackpower, color, origin, spawn_point):
 	self.target = target
 	base_damage += attackpower
 	self.color = color
-	originbody = origin	
+	originbody = origin
 	self.spawn_point = spawn_point
 	
 	

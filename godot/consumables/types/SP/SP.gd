@@ -7,23 +7,22 @@ export var mass_down = 2
 
 func init():
 	consumableType = enums.ConsumType.Speed
-	
-func _ready():
-	.create_timer()
+	.create_timer()	
 
 func on_body_entered(body):
 	.on_body_entered(body)
 	if body is character:
 		incr_speed()
 		timer.start(duration)
-		sounds.stream = sounds.speed
-		sounds.play()
+		linkBody.sounds.stream = linkBody.sounds.speed
+		linkBody.sounds.play()
 		return
 	queue_free()
 	
 func on_timeout():
-	if linkBody != null:
+	if is_instance_valid(linkBody):
 		decr_speed()
+		linkBody.sounds.stop()
 	queue_free()
 
 func incr_speed():

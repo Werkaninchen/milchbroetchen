@@ -57,4 +57,5 @@ size_flags_horizontal = 3
 
 [node name="World" type="Viewport" parent="."]
 transparent_bg = true
+audio_listener_enable_2d = true
 gui_disable_input = true

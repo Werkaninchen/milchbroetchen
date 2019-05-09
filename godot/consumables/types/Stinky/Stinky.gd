@@ -4,24 +4,23 @@ var gas_pref = load("res://consumables/types/Stinky/Gas.tscn")
 var gas
 func init():
 	consumableType = enums.ConsumType.Stinky
-	
-func _ready():
-	.create_timer()
+	.create_timer()	
 
 func on_body_entered(body):
 	.on_body_entered(body)
 	if body is character:
 		linkBody.is_stinky = true
 		timer.start(duration)
-		sounds.stream = sounds.stinky
-		sounds.play()
+		linkBody.sounds.stream = linkBody.sounds.stinky
+		linkBody.sounds.play()
 		gas = gas_pref.instance()
 		linkBody.add_child(gas)
 		return
 	queue_free()
 	
 func on_timeout():
-	if linkBody != null:
+	if is_instance_valid(linkBody):
 		linkBody.is_stinky = false
 		linkBody.remove_child(gas)
+		linkBody.sounds.stop()
 	queue_free()

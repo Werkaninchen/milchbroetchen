@@ -1,5 +1,6 @@
 extends AudioStreamPlayer2D
 
+# damage
 var ah = preload("res://Sounds/Dmg/ah.wav")
 var ah2 = preload("res://Sounds/Dmg/ah2.wav")
 var au = preload("res://Sounds/Dmg/au.wav")
@@ -14,32 +15,25 @@ var uh = preload("res://Sounds/Dmg/uh.wav")
 var wilhelm = preload("res://Sounds/Dmg/wilhelm.wav")
 var dmg = [ah, ah2, au, aua, aua2, autsch, nein, schaefchen, tutweh, uf, uh, wilhelm]
 
+# poison
 var poison1 = preload("res://Sounds/Poison/poison1.wav")
 var poison2 = preload("res://Sounds/Poison/poison2.wav")
 var poison = [poison1, poison2]
 
+# health
 var health = preload("res://Sounds/Health/health.wav")
 
+# stinky
 var stinky = preload("res://Sounds/Stinky/stinky.wav")
 
+# mine
 var mine = preload("res://Sounds/Mine/mine.wav")
 
+# speed
 var speed = preload("res://Sounds/Speed/speed.wav")
 
+# power
 var power = preload("res://Sounds/Power/power.wav")
 
+# game
 var game = preload("res://Sounds/game.ogg")
-
-func _ready():
-	connect("finished", self, "on_finished")
-
-func play_dmg():
-	stream = dmg[int(rand_range(0, dmg.size()))]
-	play()
-
-func play_game():
-	stream = game
-	play()
-	
-func on_finished():
-	pass

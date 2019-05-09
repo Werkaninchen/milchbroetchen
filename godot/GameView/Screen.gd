@@ -22,7 +22,8 @@ var sounds
 func _ready():
 	sounds = sounds_pref.instance()
 	add_child(sounds)
-	sounds.play_game()
+	sounds.stream = sounds.game
+	sounds.play()
 	
 	game_info = $VBC/GameInfoPanel/GameInfoText
 	
@@ -52,15 +53,37 @@ func _ready():
 	Game.world.add_child(e_container)
 	
 	
-	c_container.setup(30, Game.world_rect)
-	e_container.setup(3, Game.world_rect)
+	c_container.setup(100, Game.world_rect)
+	e_container.setup(100, Game.world_rect)
 		
 func _input(event):
-	if Game.end and event is InputEventJoypadButton:
-		if !event.pressed:
-			if event.button_index == JOY_START:
+	if event is InputEventJoypadButton:
+		if event.pressed and !event.is_echo():
+			if event.button_index == JOY_START and Game.end:
 				Game.reset()
 				SceneChanger.call_deferred("change_to_scene", start_scene.instance())
+		
+		if !event.pressed:
+			
+			if event.button_index == JOY_SELECT:
+				if Game.players.has(event.device) and Game.players[event.device].exit == true:
+					Game.players[event.device].exit = false
+				
+		if event.pressed:
+						
+			if event.button_index == JOY_SELECT:
+				if Game.players.has(event.device):
+					Game.players[event.device].exit = true
+					
+					var players_exit = 0
+					
+					for player in Game.players:
+						if Game.players[player].exit:
+							players_exit += 1
+					
+					if players_exit == Game.players.size():
+						Game.reset()
+						SceneChanger.call_deferred("change_to_scene", start_scene.instance())
 		
 func setup_players(players):
 	
@@ -68,8 +91,8 @@ func setup_players(players):
 		var new_player = character_scene.instance()
 		Game.players[player] = new_player
 		new_player.connect("died", Game, "_on_player_died")
-		Game.player_colors.shuffle()
-		new_player.set_up(Game.world_rect, Game.player_colors.pop_back(), player)
+		
+		new_player.set_up(Game.world_rect, players[player].color, player)
 		$World.add_child(new_player)
 	
 func _on_game_timer_updated(time):
